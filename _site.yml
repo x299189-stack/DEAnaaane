@@ -1,0 +1,23 @@
+name: "我的專題報告"
+output_dir: "docs"
+navbar:
+  title: "期末報告"
+  left:
+    - text: "CH1 緒論"
+      href: ch1.html
+    - text: "CH2 文獻回顧"
+      href: ch2.html
+    - text: "CH3 研究方法"
+      href: ch3.html
+    - text: "CH4 研究結果"
+      href: ch4.html
+    - text: "CH5 資料生成邏輯與原始數據"
+      href: ch5.html
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+    toc: true
+    toc_float: true
+    output: 
+    code_folding: hide

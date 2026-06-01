@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>ch4</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/htmltools-fill-0.5.9/fill.css" rel="stylesheet" />
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet" />
+<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script>
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet" />
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet" />
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+<link href="site_libs/dt-plugin-searchhighlight-1.13.6/source.css" rel="stylesheet" />
+<script src="site_libs/dt-plugin-searchhighlight-1.13.6/jquery.highlight.js"></script>
+<script src="site_libs/dt-plugin-searchhighlight-1.13.6/source.min.js"></script>
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet" />
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">期末報告</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="ch1.html">CH1 緒論</a>
+</li>
+<li>
+  <a href="ch2.html">CH2 文獻回顧</a>
+</li>
+<li>
+  <a href="ch3.html">CH3 研究方法</a>
+</li>
+<li>
+  <a href="ch4.html">CH4 研究結果</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">ch4</h1>
+
+</div>
+
+
+<pre class="r"><code>library(tidyverse)
+library(ggplot2)
+
+# 設定隨機種子確保每次 Build 網頁圖都一樣
+set.seed(42)
+
+# 1. 定義五種目的的參數（平均值與推導出的標準差）
+purposes_config &lt;- tibble(
+  purpose = c(&quot;就學&quot;, &quot;購物&quot;, &quot;就醫&quot;, &quot;觀光&quot;, &quot;USR活動&quot;),
+  mu      = c(2, 8, 10, 15, 18),
+  sigma   = c(0.4, 2.0, 2.5, 4.5, 3.6),
+  n       = c(20, 20, 20, 20, 20) # 每種目的各生成 100 趟車次
+)
+
+# 2. 隨機生成常態分布數據
+simulated_purposes &lt;- purposes_config %&gt;%
+  group_by(purpose) %&gt;%
+  do(tibble(
+    # 使用 mapply 針對每組的 mu 和 sigma 生成常態分布數值
+    social_value = rnorm(.$n, mean = .$mu, sd = .$sigma)
+  )) %&gt;%
+  ungroup()
+
+# 確保生成的社會價值不會出現不合理的負數（若有微量負數則強制歸零）
+simulated_purposes &lt;- simulated_purposes %&gt;%
+  mutate(social_value = if_else(social_value &lt; 0, 0, social_value))
+
+# 3. 繪製不同目的之彩色密度分布圖
+ggplot(simulated_purposes, aes(x = social_value, fill = purpose)) +
+  geom_density(alpha = 0.4, color = &quot;white&quot;) + # alpha 設定半透明，方便看疊加部分
+  scale_fill_brewer(palette = &quot;Set1&quot;) +        # 使用高質感的 Brewer 顏色調色盤
+  theme_minimal(base_size = 14) +
+  labs(
+    title = &quot;貢寮共乘服務：不同搭乘目的之里程分布圖&quot;,
+    x = &quot;里程數&quot;,
+    y = &quot;機率密度&quot;,
+    fill = &quot;搭乘目的&quot;
+  ) +
+  theme(
+    text = element_text(family = &quot;Arial Unicode MS&quot;), # 確保中文字型在網頁完美顯示
+    legend.position = &quot;top&quot;,
+    plot.title = element_text(face = &quot;bold&quot;, hjust = 0.5),
+    plot.subtitle = element_text(hjust = 0.5, color = &quot;gray40&quot;)
+  )</code></pre>
+<p><img src="ch4_files/figure-html/generate_purposes-1.png" alt="" width="864" /></p>
+<pre class="r"><code>library(DT)
+
+# 在網頁上呈現互動式表格
+datatable(simulated_purposes, 
+          options = list(pageLength = 10, searchHighlight = TRUE),
+          colnames = c(&quot;搭乘目的&quot;, &quot;各自里程數&quot;),
+          caption = &quot;表 4.1：隨機生成之各搭乘目的車次資料庫（共100筆）&quot;)</code></pre>
+<div class="datatables html-widget html-fill-item" id="htmlwidget-9761185b6a3cbd0da17b" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-9761185b6a3cbd0da17b">{"x":{"filter":"none","vertical":false,"caption":"<caption>表 4.1：隨機生成之各搭乘目的車次資料庫（共100筆）<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100"],["USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","USR活動","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就學","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","就醫","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","觀光","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物","購物"],[22.93545040972801,15.96708658297408,19.30726228081442,20.27830537785974,19.4553659633076,17.61795174207066,23.44147919078018,17.65922746171285,25.26632536995735,17.77422924341128,22.69753075520455,26.23192341372398,13.00010147599558,16.99636043945746,17.52004318898283,20.28942143305227,16.97668948290214,8.436760484742807,9.214319057128129,22.75240804462869,1.87734456236861,1.287476626408,1.931233057696151,2.485869879669039,2.758077384505986,1.82781234735752,1.897092246892428,1.294734765922088,2.184038941932509,1.744002049615952,2.182180049296488,2.281934934891527,2.414041408787969,1.756429449837116,2.201982049319188,1.313196528370663,1.686216396648202,1.659636962329393,1.034316940021347,2.014449042756902,10.51499650050063,9.097356753628334,11.89540808924879,8.183237932308561,6.579297388951764,11.08204506472179,7.971517059533321,13.61025315430313,8.921384493466636,11.63911970850552,10.80481316300987,8.040402647799061,13.93931879947994,11.60724826429329,10.22440161649901,10.69137686822866,11.69822204013818,10.2245822164477,2.517274792117663,10.71220738382665,13.34744410766561,15.83353754189524,17.61820677314478,21.29881572281705,11.72718573236491,20.86144184419865,16.51131653888433,19.67327744413929,19.14327855730791,18.24395173290088,10.30596477644465,14.59416126025182,17.80583172899794,10.70914489002445,12.55727033441764,17.61448423956757,18.45680432025566,17.08695414843075,11.01400666165644,10.05098595608465,11.02541401960986,8.515842875064061,8.176880458319173,7.758206924921821,5.611342209678943,9.223993796080773,7.565720308506958,7.634486587336156,9.86669265714232,9.643546221016498,10.78423275186854,7.047652153890652,9.300697121452611,10.78222091278,5.778422241104202,6.278414826244315,5.73652263829246,5.081572000995209,8.159965106482323,9.30640867929838]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>搭乘目的<\/th>\n      <th>各自里程數<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"searchHighlight":true,"columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"purpose","targets":1},{"name":"social_value","targets":2}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

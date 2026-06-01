@@ -1,0 +1,296 @@
+---
+title: "CH5: 資料生成邏輯與原始數據"
+output: 
+  html_document:
+    code_folding: hide
+---
+```{r data_generation, message=FALSE, warning=FALSE, echo=FALSE}
+library(tidyverse)
+library(ggplot2)
+library(DT)
+library(kableExtra)
+library(plotly)
+
+set.seed(11762)
+
+generate_lognormal_distance <- function(n, min_dist, target_mean) {
+  target_log_mean <- log(target_mean - min_dist) - 0.2
+  dist_values <- min_dist + rlnorm(n, meanlog = target_log_mean, sdlog = 0.6)
+  return(dist_values)
+}
+
+simulated_purposes <- tibble(
+  purpose = c(rep("就學", 20), rep("購物", 20), rep("就醫", 20), rep("觀光", 20), rep("USR活動", 20))
+) %>%
+  group_by(purpose) %>%
+  mutate(
+    distance = case_when(
+      purpose == "就學"    ~ generate_lognormal_distance(n(), 0.5, 1.5),
+      purpose == "購物"    ~ generate_lognormal_distance(n(), 1.0, 16.0),
+      purpose == "就醫"    ~ generate_lognormal_distance(n(), 0.3, 24.0),
+      purpose == "觀光"    ~ generate_lognormal_distance(n(), 3.0, 10.0),
+      purpose == "USR活動" ~ generate_lognormal_distance(n(), 2.0, 8.0)
+    )
+  ) %>%
+  ungroup()
+
+# 核心變數模擬生成
+passenger_probs <- list(
+  "就醫" = c(0.40, 0.40, 0.10, 0.05, 0.03, 0.02),      
+  "購物" = c(0.20, 0.30, 0.30, 0.10, 0.07, 0.03),      
+  "就學" = c(0.05, 0.10, 0.20, 0.35, 0.20, 0.10),      
+  "觀光" = c(0.10, 0.20, 0.30, 0.25, 0.10, 0.05),      
+  "USR活動" = c(0.02, 0.03, 0.10, 0.25, 0.40, 0.20)    
+)
+
+generate_passengers <- function(p_name) {
+  probs <- passenger_probs[[p_name]]
+  if (is.null(probs)) probs <- c(0.1, 0.2, 0.4, 0.2, 0.05, 0.05) 
+  sample(1:6, size = 1, prob = probs)
+}
+
+transit_ratio_mu <- c("就學" = 0.40, "購物" = 0.35, "就醫" = 0.30, "觀光" = 0.25, "USR活動" = 0.20)
+harvest_config <- list("就醫" = c(mu = 200, sd = 35), "就學" = c(mu = 200, sd = 35), "觀光" = c(mu = 100, sd = 25), "USR活動" = c(mu = 100, sd = 25), "購物" = c(mu = 50,  sd = 20))
+
+simulated_trips <- simulated_purposes %>%
+  rowwise() %>%
+  mutate(passengers = generate_passengers(purpose)) %>%
+  ungroup() %>%
+  mutate(punctuality = rbeta(n(), shape1 = 10, shape2 = 1.5)) %>%
+  mutate(punctuality = round(punctuality, 3)) %>%
+  rowwise() %>%
+  mutate(
+    base_ratio = transit_ratio_mu[as.character(purpose)],
+    transit_ratio = rnorm(1, mean = base_ratio, sd = 0.04),
+    transit_ratio = pmax(0, pmin(1, transit_ratio)),
+    coverage = round(1 - transit_ratio, 3)
+  ) %>%
+  mutate(
+    h_mu = harvest_config[[as.character(purpose)]]["mu"],
+    h_sd = harvest_config[[as.character(purpose)]]["sd"],
+    harvest = round(pmax(0, rnorm(1, mean = h_mu, sd = h_sd)), 1)
+  ) %>%
+  mutate(
+    carbon_noise = rnorm(1, mean = 0, sd = distance * 0.02), 
+    raw_reduction = (distance / 20) + carbon_noise,
+    carbon_reduction = case_when(
+      passengers == 1 ~ 0,
+      passengers == 2 ~ pmax(0, raw_reduction),
+      passengers > 2  ~ pmax(0.05, raw_reduction) 
+    ),
+    carbon_reduction = round(carbon_reduction, 2)
+  ) %>%
+  mutate(
+    v_noise = rnorm(1, mean = 0, sd = 0.02),
+    s_noise = rnorm(1, mean = 0, sd = 0.04),
+    volunteer_time = pmax(0.1, round((distance / 20) * 2 + v_noise, 2)),
+    student_time = pmax(0.1, round((((distance / 20) * 4) * passengers) + s_noise, 2))
+  ) %>%
+  mutate(
+    soc_noise = rnorm(1, mean = 0, sd = 0.03),
+    student_social_time = pmax(0.25, pmin(1.5, round(0.2 + ( (passengers^2) / (passengers^2 + 8) ) * 1.25 + soc_noise, 2)))
+  ) %>%
+  mutate(
+    time_noise = rnorm(1, mean = 0, sd = 0.05),
+    avg_time_saved = round(pmax(0.1, coverage * (distance / (distance + 2)) * 3.5 + time_noise), 2),
+    cost_noise = rnorm(1, mean = 0, sd = distance * 1.5),
+    avg_cost_saved = round(pmax(5, (distance * 10) + cost_noise), 1),
+    total_intangible_benefit = round((avg_time_saved * 196 + avg_cost_saved) * passengers, 0)
+  ) %>%
+  ungroup() %>%
+  select(-base_ratio, -transit_ratio, -h_mu, -h_sd, -carbon_noise, -raw_reduction, -time_noise, -cost_noise, -v_noise, -s_noise, -soc_noise)
+
+target_levels <- c("USR活動", "就學", "就醫", "觀光", "購物")
+simulated_trips_fixed <- simulated_trips %>%
+  mutate(purpose = factor(purpose, levels = target_levels)) %>%
+  mutate(passengers_factor = factor(passengers, levels = 1:6, labels = c("1人", "2人", "3人", "4人", "5人", "6人")))
+
+saveRDS(simulated_trips_fixed, "shared_trips_data.rds")
+```
+5.1 共乘模擬車次原始數據
+由於現階段資料不完善，本節將呈現兩階段DEA架構前之原始物理量（里程數、載客人數、人均節省時間與交通費、社會價值、準點度...等）
+```{r}
+table_data <- simulated_trips_fixed %>%
+  select(
+    `搭乘目的` = purpose, `原始里程(公里)` = distance, `搭乘人數(人)` = passengers,
+    `準時程度(0-1)` = punctuality, `服務覆蓋度(0-1)` = coverage, `原始活動收穫` = harvest,
+    `人均省時(小時)` = avg_time_saved, `人均省錢(元)` = avg_cost_saved,
+    `志工營運時間` = volunteer_time, `學生實體時間` = student_time,
+    `學生社會價值時間` = student_social_time, `車次減碳量(公斤)` = carbon_reduction,
+    `車次總無形效益(元)` = total_intangible_benefit
+  ) %>%
+  mutate(`原始里程(公里)` = round(`原始里程(公里)`, 2))
+
+datatable(
+  table_data, 
+  caption = "表 5-1：貢寮共乘100趟模擬車次原始數據",
+  extensions = 'Responsive', 
+  options = list(
+    pageLength = 10, 
+    lengthMenu = c(10, 25, 50, 100), 
+    language = list(
+      search = "關鍵字搜尋：",
+      lengthMenu = "每頁顯示 _MENU_ 筆原始數據",
+      info = "顯示第 _START_ 至 _END_ 筆資料，共 _TOTAL_ 筆",
+      infoEmpty = "無資料顯示"
+    )
+  ),
+  rownames = FALSE
+)
+```
+
+5.2 核心指標因果分佈
+
+5.2.1 服務里程分佈
+```{r}
+p1 <- ggplot(simulated_trips_fixed, aes(x = distance, fill = purpose)) + geom_density(alpha = 0.4, color = "white") + scale_fill_brewer(palette = "Set1") + theme_minimal() + labs(x = "里程數 (公里)", y = "機率密度", fill = "搭乘目的") + theme(text = element_text(family = "Arial Unicode MS"))
+ggplotly(p1) %>% layout(margin = list(t = 30), legend = list(orientation = "h", y = -0.2))
+```
+圖 5-1：服務里程數分佈
+分佈模式：對數常態分布
+
+參數與下限設定：
+
+就學：下限 0.5 km，目標均值 1.5 km(藍灣海濱休憩園區至澳底國小)。
+
+就醫：下限 0.3，目標均值 24.0(卯澳社區至樂文診所與至貢寮衛生所平均)。
+
+購物：下限 0.3，目標均值 16.0 km(卯澳至福隆車站與至澳底漁港平均值)。
+
+觀光：下限 3.0，目標均值 10.0 km(福隆車站至阿松商行來回)。
+
+USR：下限 1.0 km，目標均值 8.0 km(福隆車站至龍門沙灘來回)。
+
+```{r}
+p2 <- ggplot(simulated_trips_fixed, aes(x = factor(passengers), fill = purpose)) + geom_bar(position = "stack", alpha = 0.6, color = "white", linewidth = 0.2) + scale_fill_brewer(palette = "Set1") + theme_minimal() + labs(x = "搭乘人數 (人)", y = "車次數量 (趟)", fill = "搭乘目的") + theme(text = element_text(family = "Arial Unicode MS"))
+ggplotly(p2) %>% layout(margin = list(t = 30), legend = list(orientation = "h", y = -0.2))
+```
+圖 5-2：搭乘人數與目的
+
+分佈模式：多項式隨機抽樣（Multinomial Sampling）。
+
+參數與上下限設定：
+
+就醫：高機率集中於 1-2 人(歷史資料)。
+
+就學/USR：集中於 4-6 人集體共乘。
+
+觀光：觀光多半是假日小家庭出遊、或是大學生結伴自由行。這種規模通常落在 2~4 人的群組，很少有 1 人觀光，也較少有 6 人大團(實地觀察)。
+
+購物:高度集中在 1-3人的中低人數區間(歷史資料)。
+
+
+```{r}
+p3 <- ggplot(simulated_trips_fixed, aes(x = punctuality, fill = purpose)) + geom_density(alpha = 0.4, color = "white") + scale_fill_brewer(palette = "Set1") + theme_minimal() + labs(x = "準時程度 (0-1)", y = "機率密度", fill = "搭乘目的") + theme(text = element_text(family = "Arial Unicode MS"))
+ggplotly(p3) %>% layout(margin = list(t = 30), legend = list(orientation = "h", y = -0.2))
+```
+圖 5-3：車次營運準時程度
+
+分佈模式：貝塔分布（Beta Distribution）。
+
+參數與上下限設定：
+
+參數 Beta(α=10, β=1.5)，數值嚴格鎖定於 0 至 1 之間，期望值為 0.87。
+
+
+```{r}
+p4 <- ggplot(simulated_trips_fixed, aes(x = coverage, fill = purpose)) + geom_density(alpha = 0.4, color = "white") + scale_fill_brewer(palette = "Set1") + theme_minimal() + labs(x = "服務覆蓋度 (0-1)", y = "機率密度", fill = "搭乘目的") + theme(text = element_text(family = "Arial Unicode MS"))
+ggplotly(p4) %>% layout(margin = list(t = 30), legend = list(orientation = "h", y = -0.2))
+```
+圖 5-4：共乘服務覆蓋度
+
+分佈模式：由 1 - 大眾運輸替代率 推導，替代率服從常態分布 N(μ, σ=0.04²)。
+
+參數與上下限設定：
+
+LB : 0 UB : 1。
+
+目的期望值 μ 為：就學 0.40、購物 0.35、就醫 0.30、觀光 0.25、USR活動 0.20。
+
+```{r}
+p5 <- ggplot(simulated_trips_fixed, aes(x = harvest, fill = purpose)) + geom_density(alpha = 0.4, color = "white") + scale_fill_brewer(palette = "Set1") + theme_minimal() + labs(x = "活動收穫效益分數 (分)", y = "機率密度", fill = "搭乘目的") + theme(text = element_text(family = "Arial Unicode MS"))
+ggplotly(p5) %>% layout(margin = list(t = 30), legend = list(orientation = "h", y = -0.2))
+```
+圖 5-5：活動收穫分佈
+
+分佈模式：常態分布（Normal Distribution）。
+
+參數與上下限設定：
+
+LB : 0
+
+就醫/就學：μ = 200, σ = 35。
+
+觀光/USR：μ = 100, σ = 25。
+
+購物：μ = 50, σ = 20。
+
+```{r}
+p6 <- ggplot(simulated_trips_fixed, aes(x = distance, y = carbon_reduction, color = purpose, shape = passengers_factor)) + geom_point(size = 3, alpha = 0.8) + scale_color_brewer(palette = "Set1") + theme_minimal() + labs(x = "里程數 (公里)", y = "減碳量 (公斤 CO2)", color = "搭乘目的", shape = "搭乘人數") + theme(text = element_text(family = "Arial Unicode MS"), element_line(color = "grey95"))
+ggplotly(p6) %>% layout(margin = list(t = 30))
+```
+圖 5-6：服務里程與減碳量關係圖
+
+公式：raw = 里程 / 20 + N(0, σ = 里程 × 0.02)。 (歷史資料)
+
+1 人搭乘：減碳量歸 0。
+
+2 人搭乘：max(0, raw)。
+
+3 人以上：max(0.05, raw)。
+
+備註:如果車上只有 1個乘客，實務上只是個人接送，沒有共乘替代效果，因此不計入減碳。
+```{r}
+p7 <- ggplot(simulated_trips_fixed, aes(x = coverage, y = avg_time_saved, color = purpose, shape = passengers_factor)) + geom_point(size = 3, alpha = 0.8) + scale_color_brewer(palette = "Set1") + theme_minimal() + labs(x = "服務覆蓋度 (0-1)", y = "人均節省時間 (小時)", color = "搭乘目的", shape = "搭乘人數") + theme(text = element_text(family = "Arial Unicode MS"), element_line(color = "grey95"))
+ggplotly(p7) %>% layout(margin = list(t = 30))
+```
+圖 5-7：服務覆蓋度與人均節省時間
+
+公式：省時 = 覆蓋度 × ( 里程 / (里程+2) ) × 3.5 + N(0, σ=0.05²)。
+
+設定方向：成功修補了「極短里程卻省下驚人等車時間」的物理矛盾。當里程僅 1.5 km 時，公式會將省時打 4 折（約 20~30 分鐘，改走路或騎車的真實差距）；當里程拉長，公共運輸稀疏的等車效益才真正全面爆發。(CHATGPT)
+```{r}
+p8 <- ggplot(simulated_trips_fixed, aes(x = distance, y = avg_cost_saved, color = purpose, shape = passengers_factor)) + geom_point(size = 3, alpha = 0.8) + scale_color_brewer(palette = "Set1") + theme_minimal() + labs(x = "服務里程 (公里)", y = "人均節省交通費 (元)", color = "搭乘目的", shape = "搭乘人數") + theme(text = element_text(family = "Arial Unicode MS"), element_line(color = "grey95"))
+ggplotly(p8) %>% layout(margin = list(t = 30))
+```
+圖 5-8：里程與人均節省交通費
+
+數理公式：人均節省交通費 = (里程 × 10) + N(0, σ = 里程 × 1.5²)。(歷史資料)
+
+上下限設定：
+
+LB : 5
+
+```{r}
+p9 <- ggplot(simulated_trips_fixed, aes(x = distance, y = volunteer_time, color = purpose, shape = passengers_factor)) + geom_point(size = 3, alpha = 0.8) + scale_color_brewer(palette = "Set1") + theme_minimal() + labs(x = "服務里程 (公里)", y = "志工時間投入 (小時)", color = "搭乘目的", shape = "搭乘人數") + theme(text = element_text(family = "Arial Unicode MS"), element_line(color = "grey95"))
+ggplotly(p9) %>% layout(margin = list(t = 30))
+```
+圖 5-9：里程與志工時間投入
+
+公式：志工時間 = (里程 / 20) × 2 + N(0, σ=0.02²)。
+
+備註：一趟車次不論載幾個人，出車的志工司機永遠只有 1 人。志工時間成本不因乘客數而產生大幅變異，故隨機擾動極小。
+```{r}
+p10 <- ggplot(simulated_trips_fixed, aes(x = distance, y = student_time, color = purpose, shape = passengers_factor)) + geom_point(size = 3, alpha = 0.8) + scale_color_brewer(palette = "Set1") + theme_minimal() + labs(x = "服務里程 (公里)", y = "學生時間投入 (小時)", color = "搭乘目的", shape = "搭乘人數") + theme(text = element_text(family = "Arial Unicode MS"), element_line(color = "grey95"))
+ggplotly(p10) %>% layout(margin = list(t = 30))
+```
+圖 5-10：里程與學生實體時間投入
+
+數理公式：學生時間 = [(里程/20) × 4] × 人數 + N(0, σ=0.04²)。
+
+備註：現階段出車一旦駕駛不知道路得需要學生前往協助，因此學生投入時間會比志工司機稍多，且人數越多，學生得花越多時間溝通上下車點位時間
+
+```{r}
+p11 <- ggplot(simulated_trips_fixed, aes(x = factor(passengers), y = student_social_time, color = purpose)) + geom_jitter(position = position_jitter(width = 0.2), size = 3, alpha = 0.8) + scale_color_brewer(palette = "Set1") + theme_minimal() + labs(x = "搭乘人數 (人)", y = "社會價值投入時間 (小時)", color = "搭乘目的") + theme(text = element_text(family = "Arial Unicode MS"), panel.grid.major.x = element_blank())
+ggplotly(p11) %>% layout(margin = list(t = 30))
+```
+圖 5-11：共乘人數 vs 學生社會價值計算時間
+
+公式：Social Time = 0.2 + ( 人數² / (人數² + 8) ) × 1.25 + N(0, σ=0.03²)。
+
+上下限設定:
+
+LB: 0.25 UB: 1.5
+
+
+

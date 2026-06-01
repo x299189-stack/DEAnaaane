@@ -1,0 +1,111 @@
+---
+title: "CH4"
+output: 
+  html_document:
+    code_folding: hide
+---
+
+```{r warning = FALSE, message = FALSE, comment = ""}
+
+library(ggplot2)
+library(tidyverse)
+library(readxl)   
+library(dunn.test)
+library(AER) 
+library(DT) 
+
+QQ <- read_excel("C:/Users/x2991/Downloads/QQ.xlsx")
+
+QQ$grp <- factor(rep(c("School", "Shop", "Clinic", "Tour", "USR"), each = 20),
+                 levels = c("School", "Shop", "Clinic", "Tour", "USR"))
+
+zh_labels <- c("School" = "就學", "Shop" = "購物", "Clinic" = "就醫", "Tour" = "觀光", "USR" = "USR活動")
+
+#建立一個最優秀的表格
+
+datatable(QQ, 
+          caption = '表 4-1：兩階段 Network DEA 效率分析與投入產出數據',
+          colnames = c(
+            "搭乘目的" = "purpose", 
+            "階段一投入：志工時間(小時)" = "S1IAE",        
+            "階段一投入：學生時間(小時)" = "S2IAE",        
+            "階段一投入：油資(元)" = "MOAE",               
+            "階段一投入：補貼(元)" = "S2OAE",
+            "中間產出：準時程度(0-1)" = "VT", 
+            "中間產出：有效人公里(人公里)" = "ST",
+            "中間產出：服務覆蓋率(0-1)" = "OIL",
+            "階段二投入：學生計算時間(小時)" = "STS",
+            "最終產出：總節省(元)" = "Money",
+            "最終產出：活動收穫(分)" = "SH",
+            "最終產出：減碳量(公斤)" = "CO",
+            "第一階段效率" = "S1E",       
+            "第二階段效率" = "S2E",      
+            "最終效率" = "FE"        
+          ),
+          options = list(
+            pageLength = 10, 
+            scrollX = TRUE, 
+            autoWidth = TRUE, 
+            columnDefs = list(
+              list(className = 'dt-center', targets = '_all'),
+              list(width = '130px', targets = '_all'),
+              list(visible = FALSE, targets = -1) 
+            ),
+            language = list(
+              search = "搜尋 DEA 指標 / DMU：", 
+              lengthMenu = "效率數據每頁顯示 _MENU_ 筆"
+            )
+          ))
+
+
+p1 <- ggplot(QQ, aes(x = grp, y = S1E, fill = grp)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA, width = 0.5) +
+  geom_jitter(width = 0.15, alpha = 0.7, size = 2, aes(color = grp)) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_discrete(labels = zh_labels) + 
+  theme_minimal() +
+  labs(title = "圖 4-1：第一階段目的別分佈箱形圖", x = "搭乘目的", y = "第一階段效率") +
+  theme(text = element_text(family = "Arial Unicode MS", size = 12), legend.position = "none", plot.title = element_text(face = "bold", size = 13))
+
+p2 <- ggplot(QQ, aes(x = grp, y = S2E, fill = grp)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA, width = 0.5) +
+  geom_jitter(width = 0.15, alpha = 0.7, size = 2, aes(color = grp)) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_discrete(labels = zh_labels) + 
+  theme_minimal() +
+  labs(title = "圖 4-2：第二階段目的別分佈箱形圖", x = "搭乘目的", y = "第二階段效率") +
+  theme(text = element_text(family = "Arial Unicode MS", size = 12), legend.position = "none", plot.title = element_text(face = "bold", size = 13))
+
+p3 <- ggplot(QQ, aes(x = grp, y = FE, fill = grp)) +
+  geom_boxplot(alpha = 0.6, outlier.shape = NA, width = 0.5) +
+  geom_jitter(width = 0.15, alpha = 0.7, size = 2, aes(color = grp)) +
+  scale_fill_brewer(palette = "Set1") +
+  scale_color_brewer(palette = "Set1") +
+  scale_x_discrete(labels = zh_labels) + 
+  theme_minimal() +
+  labs(title = "圖 4-3：最終效率目的別分佈箱形圖", x = "搭乘目的", y = "最終效率") +
+  theme(text = element_text(family = "Arial Unicode MS", size = 12), legend.position = "none", plot.title = element_text(face = "bold", size = 13))
+
+print(p1)
+print(p2)
+print(p3)
+
+ggsave("docs/plot_S1E.png", plot = p1, width = 7, height = 5, dpi = 300)
+ggsave("docs/plot_S2E.png", plot = p2, width = 7, height = 5, dpi = 300)
+ggsave("docs/plot_FE.png", plot = p3, width = 7, height = 5, dpi = 300)
+
+# =========================================================================
+# 4.1 統計檢定與 Tobit 迴歸（英文變數完美對齊，再也聽不到 cli_abort 碎碎念！）
+# =========================================================================
+cat("\n=== [檢定 A] 第一階段營運效率（S1E） ===\n")
+print(kruskal.test(S1E ~ grp, data = QQ))
+cat("\n=== [檢定 B] 第二階段社會福祉效率（S2E） ===\n")
+print(kruskal.test(S2E ~ grp, data = QQ))
+cat("\n=== [檢定 C] 最終完全體效率（FE） ===\n")
+print(kruskal.test(FE ~ grp, data = QQ))
+
+cat("\n=== [Tobit 迴歸] 第二階段社會福祉效率之決定因素 ===\n")
+tobit_model <- tobit(S2E ~ MOAE + S1IAE, left = 0, right = 1, data = QQ)
+summary(tobit_model)

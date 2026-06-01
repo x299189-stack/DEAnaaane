@@ -1,0 +1,83 @@
+---
+title: "第三章 研究設計"
+---
+
+## 3.1 研究流程 (Research Process)
+
+本研究的執行流程共分為四個核心階段，從前期的架構發展到最終的模型求解與優化分析，整體路徑如下：
+
+* [cite_start]**【準備階段 (Preparation)】**：建立兩階段 NDEA 模型架構，並設計 SROI 利害關係人問卷 [cite: 38, 39]。
+* [cite_start]**【資料收集 (Data Collection)】**：完整記錄每趟車次的營運數據（Trip-level），並於行程後進行利害關係人成效問卷調查 [cite: 42, 43]。
+* [cite_start]**【價值計算 (Value Calculation)】**：計算出每趟車次的 SROI 社會價值產出，並整理出 DEA 模型所需的投入、中間變數與產出矩陣 [cite: 48, 49]。
+* [cite_start]**【建模與優化 (Modeling & Optimization)】**：進行效率求解（Efficiency Computation）與無效率車次的差額分析（Underperformance Analysis） [cite: 54, 55]。
+
+---
+
+## 3.2 兩階段網路 DEA 架構 (Two-stage NDEA)
+
+[cite_start]為了破除傳統 DEA 的「黑盒子」限制，本研究引入**兩階段網路資料包絡分析（Network DEA, NDEA）**模型 [cite: 27, 61][cite_start]。如下圖所示，整個共乘流程被解構為兩個連續的子製程（Sub-processes） [cite: 3, 62]：
+
+![圖 1：兩階段 NDEA-SROI 網路架構圖](https://raw.githubusercontent.com/your_username/your_repo/main/two_stage_structure.png)
+
+*(💡 註：請將你的架構圖上傳至專案資料夾，或透過相對路徑 `two_stage_structure.png` 引入網頁中。)*
+
+### 階段一：營運與派遣 (Operational and Deployment)
+* [cite_start]**投入項 ($X^1$)**：司機時間 ($x_{11}$)、油資與補貼 ($x_{21}$)、學生時間 ($x_{31}$) [cite: 62, 153]。
+* [cite_start]**中間產出項 ($Z$)**：準時程度 ($z_1$)、有效人公里 ($z_2$)、服務覆蓋度 ($z_3$) [cite: 62, 153]。
+
+### 階段二：社會價值轉化 (Social Achievement Conversion)
+* [cite_start]**額外投入項 ($X^2$)**：學生時間 ($x_{12}$) [cite: 62, 153]。
+* [cite_start]**最終社會產出 ($Y$)**：透過 SROI 貨幣化技術量化後的「費用與時間節省 ($y_{12}$)」[cite: 3, 76][cite_start]、「減碳量效益 ($y_{22}$)」[cite: 3, 80] [cite_start]以及「心理與社交收穫 ($y_{32}$)」[cite: 3, 84]。
+
+---
+
+## 3.3 變數定義與 SROI 貨幣化機制
+
+[cite_start]本研究將抽象的社會福祉，透過**市場接近法 (Market Approach)** [cite: 75][cite_start]、**替代成本法 (Replacement Cost Approach)** [cite: 79] [cite_start]及**敘述偏好法 (Stated Preference Method)** [cite: 83] 進行精準貨幣化。
+
+以下為 NDEA-SROI 模型完整的變數定義表：
+
+| 評估階段 | 變數符號 | 項目名稱 | 利害關係人 | [cite_start]貨幣化 / 量化計算方式 [cite: 158] |
+| :--- | :--- | :--- | :--- | :--- |
+| **Stage 1 投入** | $x_{11}$ | 司機時間 | 志工駕駛 | 實際投入之派遣與駕駛時間。 |
+| | $x_{21}$ | 油資與補貼 | 台灣海洋大學 | 單趟里程 $\times 5$ 元 + 單趟補貼 100 元。 |
+| | $x_{31}$ | 學生時間 (I) | USR團隊學生 | 第一階段協助調撥與安排駕駛的時間。 |
+| **中間變數 (Z)** | $z_1$ | 準時程度 | 共乘使用者 | $1 / (1 + |\text{實際抵達時間} - \text{預約時間}|)$。 |
+| | $z_2$ | 有效人公里 | 共乘使用者 | 根據不同搭乘者上車點與下車點之里程加總。 |
+| | $z_3$ | 服務覆蓋度 | 當地里民 | 透過地理資訊系統 (GIS) 網格計算覆蓋率。 |
+| **Stage 2 投入** | $x_{12}$ | 學生時間 (II) | USR團隊學生 | 第二階段輔導長者、追蹤成效之時間投入。 |
+| **Stage 2 產出** | $y_{12}$ | 時間與費用節省 | 共乘使用者 | 依問卷調查，以當地計程車或公車費率為基準計算。 |
+| | $y_{22}$ | 二氧化碳減碳量 | 外部環境/政府 | 計算轉乘前後之碳排差距，以碳權市場價格貨幣化。 |
+| | $y_{32}$ | 社交與心理收穫 | 使用者/志工 | 透過敘述偏好法之 WTP (支付意願) 問卷進行貨幣化。 |
+
+---
+
+## 3.4 NDEA 數學模型建立 (DEA Model)
+
+[cite_start]本研究建構一個**無導向 (Non-oriented)**、且在**固定規模報酬 (CRS)** 假設下的兩階段網路 **SBM (Slacks-Based Measure)** 模型 [cite: 89, 120][cite_start]，藉此同時評估投入過剩與產出不足的無效率問題 [cite: 121]。
+
+### 3.4.1 目標函數 (Objective Function)
+[cite_start]對於第 $k$ 趟標桿車次 ($DMU_k$) [cite: 107][cite_start]，其整體無效率得分 $\vartheta_k$ 之求解公式如下 [cite: 121]：
+
+$$\min \quad \vartheta_k = \frac{1}{2} \left[ 1 - \frac{1}{3}\sum_{i=1}^3 \frac{s_{i}^{\text{input},1}}{x_{ik1}} \right] + \frac{1}{2} \left[ \frac{1 - \frac{s^{\text{input},2}}{x_{k2}}}{1 + \frac{1}{3}\sum_{j=1}^3 \frac{s_{j}^{\text{output},2}}{y_{jk2}}} \right]$$
+
+> **💡 數學意涵解讀：**
+> [cite_start]效率得分 $\vartheta_k$ 介於 $(0, 1]$ 之間 [cite: 122][cite_start]。當且僅當所有差額變數（Slacks）皆為 0 時，$\vartheta_k = 1$，代表該車次完美落在生產效率前沿（Production Frontier）上 [cite: 122]。
+
+### 3.4.2 系統限制式 (Constraints)
+
+[cite_start]模型運算必須同時滿足以下三個面向的 endogenous 流量連續性限制 [cite: 142]：
+
+#### 1. 第一階段營運限制
+[cite_start]$$X_1 \lambda_1 + S^{\text{input},1} = x_{k1} \quad \dots \text{(Stage I 投入過剩限制)} [cite: 124]$$
+[cite_start]$$Z_{12} \lambda_1 - S^{\text{link},12} = z_{k12} \quad \dots \text{(中間產出最大潛力限制)} [cite: 126]$$
+
+#### 2. 第二階段社會價值轉化限制
+[cite_start]$$X_2 \lambda_2 + S^{\text{input},2} = x_{k2} \quad \dots \text{(Stage II 額外投入過剩限制)} [cite: 132]$$
+[cite_start]$$Z_{12} \lambda_2 + S^{\text{link},12} = z_{k12} \quad \dots \text{(中間投入消耗限制)} [cite: 135]$$
+[cite_start]$$Y_2 \lambda_2 - S^{\text{output},2} = y_{k2} \quad \dots \text{(最終社會價值產出不足限制)} [cite: 139]$$
+
+#### 3. 網路串聯連續性 (Link 12)
+[cite_start]$$Z_{12} \lambda_1 \ge Z_{12} \lambda_2 \quad \dots \text{(數學連續性 enforces)} [cite: 118, 142]$$
+
+$$\lambda_1, \lambda_2 \ge 0, \quad S^{\text{input},1}, S^{\text{input},2}, S^{\text{link},12}, S^{\text{output},2} \ge 0$$

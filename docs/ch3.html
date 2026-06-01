@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>第三章 研究設計</title>
+
+<script src="site_libs/header-attrs-2.31/header-attrs.js"></script>
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.13.2/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script src="site_libs/navigation-1.1/codefolding.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+<style type="text/css">
+.code-folding-btn { margin-bottom: 4px; }
+</style>
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbar" data-bs-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">期末報告</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="ch1.html">CH1 緒論</a>
+</li>
+<li>
+  <a href="ch2.html">CH2 文獻回顧</a>
+</li>
+<li>
+  <a href="ch3.html">CH3 研究方法</a>
+</li>
+<li>
+  <a href="ch4.html">CH4 研究結果</a>
+</li>
+<li>
+  <a href="ch5.html">CH5 資料生成邏輯與原始數據</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+<div class="btn-group pull-right float-right">
+<button type="button" class="btn btn-default btn-xs btn-secondary btn-sm dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span>Code</span> <span class="caret"></span></button>
+<ul class="dropdown-menu dropdown-menu-right" style="min-width: 50px;">
+<li><a id="rmd-show-all-code" href="#">Show All Code</a></li>
+<li><a id="rmd-hide-all-code" href="#">Hide All Code</a></li>
+</ul>
+</div>
+
+
+
+<h1 class="title toc-ignore">第三章 研究設計</h1>
+
+</div>
+
+
+<div id="研究流程-research-process" class="section level2">
+<h2>3.1 研究流程 (Research Process)</h2>
+<p>本研究的執行流程共分為四個核心階段，從前期的架構發展到最終的模型求解與優化分析，整體路徑如下：</p>
+<ul>
+<li>[cite_start]<strong>【準備階段 (Preparation)】</strong>：建立兩階段
+NDEA 模型架構，並設計 SROI 利害關係人問卷 [cite: 38, 39]。</li>
+<li>[cite_start]<strong>【資料收集 (Data
+Collection)】</strong>：完整記錄每趟車次的營運數據（Trip-level），並於行程後進行利害關係人成效問卷調查
+[cite: 42, 43]。</li>
+<li>[cite_start]<strong>【價值計算 (Value
+Calculation)】</strong>：計算出每趟車次的 SROI 社會價值產出，並整理出
+DEA 模型所需的投入、中間變數與產出矩陣 [cite: 48, 49]。</li>
+<li>[cite_start]<strong>【建模與優化 (Modeling &amp;
+Optimization)】</strong>：進行效率求解（Efficiency
+Computation）與無效率車次的差額分析（Underperformance Analysis） [cite:
+54, 55]。</li>
+</ul>
+<hr />
+</div>
+<div id="兩階段網路-dea-架構-two-stage-ndea" class="section level2">
+<h2>3.2 兩階段網路 DEA 架構 (Two-stage NDEA)</h2>
+<p>[cite_start]為了破除傳統 DEA
+的「黑盒子」限制，本研究引入<strong>兩階段網路資料包絡分析（Network DEA,
+NDEA）</strong>模型 [cite: 27,
+61][cite_start]。如下圖所示，整個共乘流程被解構為兩個連續的子製程（Sub-processes）
+[cite: 3, 62]：</p>
+<div class="float">
+<img
+src="https://raw.githubusercontent.com/your_username/your_repo/main/two_stage_structure.png"
+alt="圖 1：兩階段 NDEA-SROI 網路架構圖" />
+<div class="figcaption">圖 1：兩階段 NDEA-SROI 網路架構圖</div>
+</div>
+<p><em>(💡 註：請將你的架構圖上傳至專案資料夾，或透過相對路徑
+<code>two_stage_structure.png</code> 引入網頁中。)</em></p>
+<div id="階段一營運與派遣-operational-and-deployment"
+class="section level3">
+<h3>階段一：營運與派遣 (Operational and Deployment)</h3>
+<ul>
+<li>[cite_start]<strong>投入項 (<span
+class="math inline">\(X^1\)</span>)</strong>：司機時間 (<span
+class="math inline">\(x_{11}\)</span>)、油資與補貼 (<span
+class="math inline">\(x_{21}\)</span>)、學生時間 (<span
+class="math inline">\(x_{31}\)</span>) [cite: 62, 153]。</li>
+<li>[cite_start]<strong>中間產出項 (<span
+class="math inline">\(Z\)</span>)</strong>：準時程度 (<span
+class="math inline">\(z_1\)</span>)、有效人公里 (<span
+class="math inline">\(z_2\)</span>)、服務覆蓋度 (<span
+class="math inline">\(z_3\)</span>) [cite: 62, 153]。</li>
+</ul>
+</div>
+<div id="階段二社會價值轉化-social-achievement-conversion"
+class="section level3">
+<h3>階段二：社會價值轉化 (Social Achievement Conversion)</h3>
+<ul>
+<li>[cite_start]<strong>額外投入項 (<span
+class="math inline">\(X^2\)</span>)</strong>：學生時間 (<span
+class="math inline">\(x_{12}\)</span>) [cite: 62, 153]。</li>
+<li>[cite_start]<strong>最終社會產出 (<span
+class="math inline">\(Y\)</span>)</strong>：透過 SROI
+貨幣化技術量化後的「費用與時間節省 (<span
+class="math inline">\(y_{12}\)</span>)」[cite: 3,
+76][cite_start]、「減碳量效益 (<span
+class="math inline">\(y_{22}\)</span>)」[cite: 3, 80]
+[cite_start]以及「心理與社交收穫 (<span
+class="math inline">\(y_{32}\)</span>)」[cite: 3, 84]。</li>
+</ul>
+<hr />
+</div>
+</div>
+<div id="變數定義與-sroi-貨幣化機制" class="section level2">
+<h2>3.3 變數定義與 SROI 貨幣化機制</h2>
+<p>[cite_start]本研究將抽象的社會福祉，透過<strong>市場接近法 (Market
+Approach)</strong> [cite: 75][cite_start]、<strong>替代成本法
+(Replacement Cost Approach)</strong> [cite: 79]
+[cite_start]及<strong>敘述偏好法 (Stated Preference Method)</strong>
+[cite: 83] 進行精準貨幣化。</p>
+<p>以下為 NDEA-SROI 模型完整的變數定義表：</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+<col width="20%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">評估階段</th>
+<th align="left">變數符號</th>
+<th align="left">項目名稱</th>
+<th align="left">利害關係人</th>
+<th align="left">[cite_start]貨幣化 / 量化計算方式 [cite: 158]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Stage 1 投入</strong></td>
+<td align="left"><span class="math inline">\(x_{11}\)</span></td>
+<td align="left">司機時間</td>
+<td align="left">志工駕駛</td>
+<td align="left">實際投入之派遣與駕駛時間。</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(x_{21}\)</span></td>
+<td align="left">油資與補貼</td>
+<td align="left">台灣海洋大學</td>
+<td align="left">單趟里程 <span class="math inline">\(\times 5\)</span>
+元 + 單趟補貼 100 元。</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(x_{31}\)</span></td>
+<td align="left">學生時間 (I)</td>
+<td align="left">USR團隊學生</td>
+<td align="left">第一階段協助調撥與安排駕駛的時間。</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>中間變數 (Z)</strong></td>
+<td align="left"><span class="math inline">\(z_1\)</span></td>
+<td align="left">準時程度</td>
+<td align="left">共乘使用者</td>
+<td align="left"><span class="math inline">\(1 / (1 +
+|\text{實際抵達時間} - \text{預約時間}|)\)</span>。</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(z_2\)</span></td>
+<td align="left">有效人公里</td>
+<td align="left">共乘使用者</td>
+<td align="left">根據不同搭乘者上車點與下車點之里程加總。</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(z_3\)</span></td>
+<td align="left">服務覆蓋度</td>
+<td align="left">當地里民</td>
+<td align="left">透過地理資訊系統 (GIS) 網格計算覆蓋率。</td>
+</tr>
+<tr class="odd">
+<td align="left"><strong>Stage 2 投入</strong></td>
+<td align="left"><span class="math inline">\(x_{12}\)</span></td>
+<td align="left">學生時間 (II)</td>
+<td align="left">USR團隊學生</td>
+<td align="left">第二階段輔導長者、追蹤成效之時間投入。</td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Stage 2 產出</strong></td>
+<td align="left"><span class="math inline">\(y_{12}\)</span></td>
+<td align="left">時間與費用節省</td>
+<td align="left">共乘使用者</td>
+<td align="left">依問卷調查，以當地計程車或公車費率為基準計算。</td>
+</tr>
+<tr class="odd">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(y_{22}\)</span></td>
+<td align="left">二氧化碳減碳量</td>
+<td align="left">外部環境/政府</td>
+<td align="left">計算轉乘前後之碳排差距，以碳權市場價格貨幣化。</td>
+</tr>
+<tr class="even">
+<td align="left"></td>
+<td align="left"><span class="math inline">\(y_{32}\)</span></td>
+<td align="left">社交與心理收穫</td>
+<td align="left">使用者/志工</td>
+<td align="left">透過敘述偏好法之 WTP (支付意願) 問卷進行貨幣化。</td>
+</tr>
+</tbody>
+</table>
+<hr />
+</div>
+<div id="ndea-數學模型建立-dea-model" class="section level2">
+<h2>3.4 NDEA 數學模型建立 (DEA Model)</h2>
+<p>[cite_start]本研究建構一個<strong>無導向
+(Non-oriented)</strong>、且在<strong>固定規模報酬 (CRS)</strong>
+假設下的兩階段網路 <strong>SBM (Slacks-Based Measure)</strong> 模型
+[cite: 89, 120][cite_start]，藉此同時評估投入過剩與產出不足的無效率問題
+[cite: 121]。</p>
+<div id="目標函數-objective-function" class="section level3">
+<h3>3.4.1 目標函數 (Objective Function)</h3>
+<p>[cite_start]對於第 <span class="math inline">\(k\)</span> 趟標桿車次
+(<span class="math inline">\(DMU_k\)</span>) [cite:
+107][cite_start]，其整體無效率得分 <span
+class="math inline">\(\vartheta_k\)</span> 之求解公式如下 [cite:
+121]：</p>
+<p><span class="math display">\[\min \quad \vartheta_k = \frac{1}{2}
+\left[ 1 - \frac{1}{3}\sum_{i=1}^3
+\frac{s_{i}^{\text{input},1}}{x_{ik1}} \right] + \frac{1}{2} \left[
+\frac{1 - \frac{s^{\text{input},2}}{x_{k2}}}{1 + \frac{1}{3}\sum_{j=1}^3
+\frac{s_{j}^{\text{output},2}}{y_{jk2}}} \right]\]</span></p>
+<blockquote>
+<p><strong>💡 數學意涵解讀：</strong> [cite_start]效率得分 <span
+class="math inline">\(\vartheta_k\)</span> 介於 <span
+class="math inline">\((0, 1]\)</span> 之間 [cite:
+122][cite_start]。當且僅當所有差額變數（Slacks）皆為 0 時，<span
+class="math inline">\(\vartheta_k =
+1\)</span>，代表該車次完美落在生產效率前沿（Production Frontier）上
+[cite: 122]。</p>
+</blockquote>
+</div>
+<div id="系統限制式-constraints" class="section level3">
+<h3>3.4.2 系統限制式 (Constraints)</h3>
+<p>[cite_start]模型運算必須同時滿足以下三個面向的 endogenous
+流量連續性限制 [cite: 142]：</p>
+<div id="第一階段營運限制" class="section level4">
+<h4>1. 第一階段營運限制</h4>
+<p>[cite_start]<span class="math display">\[X_1 \lambda_1 +
+S^{\text{input},1} = x_{k1} \quad \dots \text{(Stage I 投入過剩限制)}
+[cite: 124]\]</span> [cite_start]<span class="math display">\[Z_{12}
+\lambda_1 - S^{\text{link},12} = z_{k12} \quad \dots
+\text{(中間產出最大潛力限制)} [cite: 126]\]</span></p>
+</div>
+<div id="第二階段社會價值轉化限制" class="section level4">
+<h4>2. 第二階段社會價值轉化限制</h4>
+<p>[cite_start]<span class="math display">\[X_2 \lambda_2 +
+S^{\text{input},2} = x_{k2} \quad \dots \text{(Stage II
+額外投入過剩限制)} [cite: 132]\]</span> [cite_start]<span
+class="math display">\[Z_{12} \lambda_2 + S^{\text{link},12} = z_{k12}
+\quad \dots \text{(中間投入消耗限制)} [cite: 135]\]</span>
+[cite_start]<span class="math display">\[Y_2 \lambda_2 -
+S^{\text{output},2} = y_{k2} \quad \dots
+\text{(最終社會價值產出不足限制)} [cite: 139]\]</span></p>
+</div>
+<div id="網路串聯連續性-link-12" class="section level4">
+<h4>3. 網路串聯連續性 (Link 12)</h4>
+<p>[cite_start]<span class="math display">\[Z_{12} \lambda_1 \ge Z_{12}
+\lambda_2 \quad \dots \text{(數學連續性 enforces)} [cite: 118,
+142]\]</span></p>
+<p><span class="math display">\[\lambda_1, \lambda_2 \ge 0, \quad
+S^{\text{input},1}, S^{\text{input},2}, S^{\text{link},12},
+S^{\text{output},2} \ge 0\]</span></p>
+</div>
+</div>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+<script>
+$(document).ready(function () {
+  window.initializeCodeFolding("hide" === "show");
+});
+</script>
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
