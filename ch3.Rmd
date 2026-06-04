@@ -1,83 +1,128 @@
 ---
-title: "第三章 研究設計"
+title: "第三章 研究方法"
+editor_options: 
+  markdown: 
+    wrap: 72
 ---
 
-## 3.1 研究流程 (Research Process)
+本章建立評估偏鄉需求反應式公共運輸績效之兩階段NDEA，並透過SROI之社會價值貨幣化技術，進行社會價值衡量。
 
-本研究的執行流程共分為四個核心階段，從前期的架構發展到最終的模型求解與優化分析，整體路徑如下：
+## 3.1 兩階段NDEA架構
 
-* [cite_start]**【準備階段 (Preparation)】**：建立兩階段 NDEA 模型架構，並設計 SROI 利害關係人問卷 [cite: 38, 39]。
-* [cite_start]**【資料收集 (Data Collection)】**：完整記錄每趟車次的營運數據（Trip-level），並於行程後進行利害關係人成效問卷調查 [cite: 42, 43]。
-* [cite_start]**【價值計算 (Value Calculation)】**：計算出每趟車次的 SROI 社會價值產出，並整理出 DEA 模型所需的投入、中間變數與產出矩陣 [cite: 48, 49]。
-* [cite_start]**【建模與優化 (Modeling & Optimization)】**：進行效率求解（Efficiency Computation）與無效率車次的差額分析（Underperformance Analysis） [cite: 54, 55]。
+研究使用無導向SBM-NDEA，目的是最小化投入的差額與產出的差額，其NDEA架構圖如下圖
+3.1 所示：
+![圖 3.1 NDEA架構圖](SP.jpg){width=85%}
 
----
+研究將活動出車n(n=1,...,N)分為兩階段，活動出車n的第一階段有三種投入$x_k^1$(k=1,...,3)，他會產生三種中間產物流向第二階段$z_k^1$(k=1,...,3)，第二階段則只有一種投入$x_1^2$，並透過這個投入與三種中間產物產出三種最終產出$y_r^2$(r=1,...3)。
 
-## 3.2 兩階段網路 DEA 架構 (Two-stage NDEA)
+## 3.2  社會投資報酬率（SROI）方法與社會價值貨幣化流程
 
-[cite_start]為了破除傳統 DEA 的「黑盒子」限制，本研究引入**兩階段網路資料包絡分析（Network DEA, NDEA）**模型 [cite: 27, 61][cite_start]。如下圖所示，整個共乘流程被解構為兩個連續的子製程（Sub-processes） [cite: 3, 62]：
+本節將詳細說明如何盤點利害關係人，並透過轉變理論（Theory of Change, ToC）與金融代理變數（Financial Proxies），將無形的社會價值具體貨幣化，作為模型第二階段之最終產出變數。
 
-![圖 1：兩階段 NDEA-SROI 網路架構圖](https://raw.githubusercontent.com/your_username/your_repo/main/two_stage_structure.png)
+### 3.2.1 利害關係人判定原則與轉變理論
 
-*(💡 註：請將你的架構圖上傳至專案資料夾，或透過相對路徑 `two_stage_structure.png` 引入網頁中。)*
+根據 SROI 評估指引之核心原則，利害關係人定義為「因本服務或計畫之投入，而經歷或創造轉變（無論正負向、預期與否）之個人、群體或組織」(Nicholls et al,. 2012)。在方法論建構上，確立評估範疇與因果路徑需遵循以下兩大核心理論機制：
 
-### 階段一：營運與派遣 (Operational and Deployment)
-* [cite_start]**投入項 ($X^1$)**：司機時間 ($x_{11}$)、油資與補貼 ($x_{21}$)、學生時間 ($x_{31}$) [cite: 62, 153]。
-* [cite_start]**中間產出項 ($Z$)**：準時程度 ($z_1$)、有效人公里 ($z_2$)、服務覆蓋度 ($z_3$) [cite: 62, 153]。
+實質性原則（Principle of Materiality）：
+在界定利害關係人時，本研究以「是否對決策或服務產生實質投入」以及「其福祉是否因該服務而產生顯著之質變或量變」作為篩選依據。此原則能有效排除關聯度極低之外部個體，確保計量模型之產出向量具有高度相關性與代表性。
 
-### 階段二：社會價值轉化 (Social Achievement Conversion)
-* [cite_start]**額外投入項 ($X^2$)**：學生時間 ($x_{12}$) [cite: 62, 153]。
-* [cite_start]**最終社會產出 ($Y$)**：透過 SROI 貨幣化技術量化後的「費用與時間節省 ($y_{12}$)」[cite: 3, 76][cite_start]、「減碳量效益 ($y_{22}$)」[cite: 3, 80] [cite_start]以及「心理與社交收穫 ($y_{32}$)」[cite: 3, 84]。
+轉變理論之因果關係：
+轉變理論是用來還原無形價值之因果邏輯。要求把評估對象之「投入」、「產出」與利害關係人實質的「成效」進行嚴謹的因果連結。透過此一機制，本研究可以更聚焦在服務所創造的社會價值與心理轉變。
 
----
+### 3.2.2 社會價值貨幣化量化方式
 
-## 3.3 變數定義與 SROI 貨幣化機制
+為還原無市場交易定價之主觀福利與生態環境效益，研究採用三種國際公認之價值貨幣化技術：
 
-[cite_start]本研究將抽象的社會福祉，透過**市場接近法 (Market Approach)** [cite: 75][cite_start]、**替代成本法 (Replacement Cost Approach)** [cite: 79] [cite_start]及**敘述偏好法 (Stated Preference Method)** [cite: 83] 進行精準貨幣化。
+1.市場替代法（Market Approach）：應用於「時間與費用節省」。用使用服務者原本打算使用的交通方式替換成實際價值並結合最低時薪計算使用者因共乘服務省下的時間價值
 
-以下為 NDEA-SROI 模型完整的變數定義表：
+2.替代成本法（Replacement Cost Approach）：應用於「二氧化碳減量價值」。計算乘車者若自行開車或搭乘其他交通工具之排放量，與共乘車輛之差額，並套用當前碳權交易市場之每噸碳價進行生態價值貨幣化。
 
-| 評估階段 | 變數符號 | 項目名稱 | 利害關係人 | [cite_start]貨幣化 / 量化計算方式 [cite: 158] |
-| :--- | :--- | :--- | :--- | :--- |
-| **Stage 1 投入** | $x_{11}$ | 司機時間 | 志工駕駛 | 實際投入之派遣與駕駛時間。 |
-| | $x_{21}$ | 油資與補貼 | 台灣海洋大學 | 單趟里程 $\times 5$ 元 + 單趟補貼 100 元。 |
-| | $x_{31}$ | 學生時間 (I) | USR團隊學生 | 第一階段協助調撥與安排駕駛的時間。 |
-| **中間變數 (Z)** | $z_1$ | 準時程度 | 共乘使用者 | $1 / (1 + |\text{實際抵達時間} - \text{預約時間}|)$。 |
-| | $z_2$ | 有效人公里 | 共乘使用者 | 根據不同搭乘者上車點與下車點之里程加總。 |
-| | $z_3$ | 服務覆蓋度 | 當地里民 | 透過地理資訊系統 (GIS) 網格計算覆蓋率。 |
-| **Stage 2 投入** | $x_{12}$ | 學生時間 (II) | USR團隊學生 | 第二階段輔導長者、追蹤成效之時間投入。 |
-| **Stage 2 產出** | $y_{12}$ | 時間與費用節省 | 共乘使用者 | 依問卷調查，以當地計程車或公車費率為基準計算。 |
-| | $y_{22}$ | 二氧化碳減碳量 | 外部環境/政府 | 計算轉乘前後之碳排差距，以碳權市場價格貨幣化。 |
-| | $y_{32}$ | 社交與心理收穫 | 使用者/志工 | 透過敘述偏好法之 WTP (支付意願) 問卷進行貨幣化。 |
+3.敘述偏偏好法與支付意願（Stated Preference & Willingness to Pay, WTP）：應用在「參與收穫價值」。針對無法在市場交易的主觀社會價值（如高齡長者社交孤立感之降低、志工司機參與社區之成就感），透過問卷調查，評估受訪者心中對於獲得此等心理與健康狀態所願意支付的等值貨幣化金額。
 
----
+## 3.3 兩階段NDEA模型
 
-## 3.4 NDEA 數學模型建立 (DEA Model)
+基於 NDEA 結構，研究建構一個整合 SROI 貨幣化指標之非導向、兩階段NDEA模型。本研究採用非導向鬆弛變數（Slacks-Based Measure, SBM）之目標式，並在變動規模報酬（Variable Returns to Scale, VRS）假設下，對個別車次之轉換效率進行求解。
 
-[cite_start]本研究建構一個**無導向 (Non-oriented)**、且在**固定規模報酬 (CRS)** 假設下的兩階段網路 **SBM (Slacks-Based Measure)** 模型 [cite: 89, 120][cite_start]，藉此同時評估投入過剩與產出不足的無效率問題 [cite: 121]。
+### 3.3.1 目標函數
 
-### 3.4.1 目標函數 (Objective Function)
-[cite_start]對於第 $k$ 趟標桿車次 ($DMU_k$) [cite: 107][cite_start]，其整體無效率得分 $\vartheta_k$ 之求解公式如下 [cite: 121]：
+於任一被評估之特定共乘車次 $\text{DMU}_k$（其中 $k \in \{1, \dots, N\}$），本研究之非導向兩階段 NSBM 之目標函數旨在同時最小化第一階段與第二階段之投入(產出)冗餘（浪費）
 
-$$\min \quad \vartheta_k = \frac{1}{2} \left[ 1 - \frac{1}{3}\sum_{i=1}^3 \frac{s_{i}^{\text{input},1}}{x_{ik1}} \right] + \frac{1}{2} \left[ \frac{1 - \frac{s^{\text{input},2}}{x_{k2}}}{1 + \frac{1}{3}\sum_{j=1}^3 \frac{s_{j}^{\text{output},2}}{y_{jk2}}} \right]$$
+其中，數學目標式如下:
 
-> **💡 數學意涵解讀：**
-> [cite_start]效率得分 $\vartheta_k$ 介於 $(0, 1]$ 之間 [cite: 122][cite_start]。當且僅當所有差額變數（Slacks）皆為 0 時，$\vartheta_k = 1$，代表該車次完美落在生產效率前沿（Production Frontier）上 [cite: 122]。
+$$\vartheta_k^* = \min_{} \frac{ \left( 1 - \left( \frac{1}{3} \sum_{i=1}^3 \frac{s_{input,i}^1}{x_{ik}^1} \right) \right) + \left( 1 - \left( \frac{s_{input}^2}{x_k^2} \right) \right) }{ \left( 1 + \frac{1}{3} \sum_{t=1}^3 \frac{s_{link,t}^{12}}{z_{tk}^{12}} \right) + \left( 1 + \frac{1}{3} \sum_{j=1}^3 \frac{s_{output,j}^2}{y_{jk}^2} \right) } \quad (3.3.1)$$
 
-### 3.4.2 系統限制式 (Constraints)
+### 3.3.2 限制函數
 
-[cite_start]模型運算必須同時滿足以下三個面向的 endogenous 流量連續性限制 [cite: 142]：
+限制條件如下：
 
-#### 1. 第一階段營運限制
-[cite_start]$$X_1 \lambda_1 + S^{\text{input},1} = x_{k1} \quad \dots \text{(Stage I 投入過剩限制)} [cite: 124]$$
-[cite_start]$$Z_{12} \lambda_1 - S^{\text{link},12} = z_{k12} \quad \dots \text{(中間產出最大潛力限制)} [cite: 126]$$
+第一階段：營運與派遣（Process 1）
 
-#### 2. 第二階段社會價值轉化限制
-[cite_start]$$X_2 \lambda_2 + S^{\text{input},2} = x_{k2} \quad \dots \text{(Stage II 額外投入過剩限制)} [cite: 132]$$
-[cite_start]$$Z_{12} \lambda_2 + S^{\text{link},12} = z_{k12} \quad \dots \text{(中間投入消耗限制)} [cite: 135]$$
-[cite_start]$$Y_2 \lambda_2 - S^{\text{output},2} = y_{k2} \quad \dots \text{(最終社會價值產出不足限制)} [cite: 139]$$
+$$\sum_{n=1}^N x_{in}^1 \lambda_n^1 + s_{input,i}^1 = x_{ik}^1 , \quad \forall i = 1, 2, 3 \quad (3.3.2)$$
 
-#### 3. 網路串聯連續性 (Link 12)
-[cite_start]$$Z_{12} \lambda_1 \ge Z_{12} \lambda_2 \quad \dots \text{(數學連續性 enforces)} [cite: 118, 142]$$
+$$\sum_{n=1}^N z_{tn}^{12} \lambda_n^1 - s_{link,t}^{12} = z_{tk}^{12} , \quad \forall t = 1, 2, 3 \quad (3.3.3)$$
 
-$$\lambda_1, \lambda_2 \ge 0, \quad S^{\text{input},1}, S^{\text{input},2}, S^{\text{link},12}, S^{\text{output},2} \ge 0$$
+第二階段：社會價值轉化（Process 2）
+
+
+$$\sum_{n=1}^N x_{1n}^2 \lambda_n^2 + s_{input}^2 = x_k^2 \quad (3.3.4)$$
+
+$$\sum_{n=1}^N z_{tn}^{12} \lambda_n^2 + s_{link,t}^{12} = z_{tk}^{12} , \quad \forall t = 1, 2, 3 \quad (3.3.5)$$
+
+$$\sum_{n=1}^N y_{jn}^2 \lambda_n^2 - s_{output,j}^2 = y_{jk}^2 , \quad \forall j = 1, 2, 3 \quad (3.3.6)$$
+
+連結與規模報酬（Link & VRS）
+
+$$\sum_{n=1}^N z_{jn}^{12} \lambda_n^1 \ge \sum_{n=1}^N z_{jn}^{12} \lambda_n^2 , \quad \forall j = 1, 2, 3 \quad (3.3.7)$$
+
+$$\sum_{n=1}^N \lambda_n^1 = 1, \quad \sum_{n=1}^N \lambda_n^2 = 1 \quad (3.3.8)$$
+
+$$\lambda_n^1 \ge 0, \quad \lambda_n^2 \ge 0 , \quad \forall n = 1, \dots, N \quad (3.3.9)$$
+
+## 3.3.3 變數與符號定義
+
+$k$：DMU，即每一趟獨立之共乘活動($k = 1, \dots, n$)。
+
+$i$：第一階段之原始直接投入變數 ($i=1, 2, 3$，對應司機時間、補貼油資、學生時間)。
+
+$j$：兩階段間之中間變數，亦即第一階段產出與第二階段投入 ($j=1, 2, 3$，對應準時程度、有效人公里、服務覆蓋度)。
+
+$r$：第二階段最終社會福祉產出變數 ($r=1, 2, 3$，對應時間費用節省、減碳量價值、參與收穫價值)。
+
+$n$：所有車次之集合 ($n=1, \dots, n$)。
+
+參數與決策變數：
+
+$\vartheta_k^*$：車次 $k$ 之兩階段總體效率（值介於 0 至 1，愈接近 1 代表效率愈佳）。
+
+$\lambda_n^1, \lambda_n^2$：第一、二階段之權重向量，代表各 DMU 在效率前緣上的線性組合權重。
+
+$x_{ik}^1, x_{1k}^2$：車次 $k$ 在第一、二階段之實際觀測投入量。
+
+$z_{jk}^{12}$：車次 $k$ 的第j個中間變數觀測值。
+
+$y_{rk}^2$：車次 $k$ 的第r個最終產出觀測值。
+
+$s_{i1}, s_{12}$：對應第一、二階段之投入冗餘鬆弛變數（代表投入資源之浪費程度）。
+
+$s_{j}^{link,in}, s_{j}^{link,out}$：中間變數於第一階段流向第二階段過程的不足與過剩鬆弛變數。
+
+$s_{r2}^2$：第二階段最終產出之不足鬆弛變數。
+
+式 (3.3.2) 此式限制第一階段的投入項（$x_{input,j}^1$）的配置應等於其他DMU的第二階段投入線性組合加上差額($s_{input,j}^1$)
+
+式 (3.3.3) 此式限制階段一的中間產物產出應等於其他DMU的中間產物產出的線性組合減去差額($s_{link,t}^12$)
+
+式 (3.3.4)：此式限制第二階段的投入項（$x_k^2$）的配置合理性。應等於其他DMU的第二階段投入線性組合加上差額($s_{input}^2$)
+
+式 (3.3.5)：此式限制階段二的中間產物投入應等於其他DMU的中間產物投入的線性組合加上差額($s_{link,t}^12$)
+
+式 (3.3.6) 此式限制階段二的最終產出應等於其他DMU的最終產出的線性組合加上差額($s_{output,j}^2$)
+
+式 (3.3.7) ：這是兩階段網絡模型的連結，強制規範第一階段營運所創造之中間產出量，必須大於或等於第二階段轉化福祉時所消耗之資源量。此約束確保了營運供給與社會福祉轉化在數學上的「流動守恆」，防止數據在階段傳遞中出現非法創造，保障績效評估之嚴謹性。
+
+式 (3.3.8) 規模報酬假設（VRS）：透過 $\sum \lambda = 1$ 之限制，設定本模型為變動規模報酬（VRS）
+
+
+本章透過NDEA之架構，將偏鄉運輸之營運流程拆解為「營運與派遣」與「社會價值轉化」兩階段。透過NSBM的建構，不僅將傳統運輸績效評估中難以量化之社會外部性（透過 SROI 貨幣化指標），轉化為模型之最終產出矩陣，更透過網絡流動連續性與 VRS 假設之約束，解構了資源在各個階段間的轉化。
+
+本章所建立之數學規劃架構，具備兩項關鍵之管理診斷潛力，這些計量指標不僅能評估共乘系統在當前資源配置下之綜合績效，更為後續第四章之實證分析提供理論基礎，用以識別個別車次之管理問題，並為偏鄉交通之資源配置優化提供具備統計顯著性之實務依據。

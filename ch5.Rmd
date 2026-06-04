@@ -208,7 +208,7 @@ LB : 0 UB : 1。
 目的期望值 μ 為：就學 0.40、購物 0.35、就醫 0.30、觀光 0.25、USR活動 0.20。
 
 ```{r}
-p5 <- ggplot(simulated_trips_fixed, aes(x = harvest, fill = purpose)) + geom_density(alpha = 0.4, color = "white") + scale_fill_brewer(palette = "Set1") + theme_minimal() + labs(x = "活動收穫效益分數 (分)", y = "機率密度", fill = "搭乘目的") + theme(text = element_text(family = "Arial Unicode MS"))
+p5 <- ggplot(simulated_trips_fixed, aes(x = harvest, fill = purpose)) + geom_density(alpha = 0.4, color = "white") + scale_fill_brewer(palette = "Set1") + theme_minimal() + labs(x = "活動收穫 (元)", y = "機率密度", fill = "搭乘目的") + theme(text = element_text(family = "Arial Unicode MS"))
 ggplotly(p5) %>% layout(margin = list(t = 30), legend = list(orientation = "h", y = -0.2))
 ```
 圖 5-5：活動收穫分佈

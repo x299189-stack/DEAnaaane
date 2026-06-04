@@ -337,6 +337,9 @@ div.tocify {
 <li>
   <a href="ch5.html">CH5 資料生成邏輯與原始數據</a>
 </li>
+<li>
+  <a href="reference.html">附註與參考文獻</a>
+</li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
         
@@ -362,64 +365,105 @@ div.tocify {
 </div>
 
 
+<div id="摘要" class="section level3">
+<h3>摘要</h3>
+<p>隨著人口高齡化與少子化趨勢加劇，偏鄉地區面臨大眾運輸邊緣化之嚴峻挑戰然而交通出行也是衡量生活品質的條件之一。近年來，需求反應式公共運輸（DRTS）與社區共乘服務逐漸成為解決偏鄉交通「最後一哩路」之核心政策。然而，傳統交通績效評估方法多聚焦於營運成本、載客量及每公里補貼等財務與財務衍生指標，往往忽略了偏鄉接送本質上所創造的醫療可及性、社區照顧、長者心理健康以及共乘減碳等無法直接貨幣化之社會價值。若僅依賴傳統資料包絡分析模型，將因缺乏對主觀非財務效益的合理轉化機制，導致評估結果偏頗；而若單純採用社會投資報酬率，則僅能衡量宏觀的整體計畫成效，難以針對微觀車次進行效率標竿之營運優化。
+有鑑於此，為了填補此學術缺口，提出一個整合SROI貨幣化指標與兩階段網路資料包絡分析之新型公共運輸績效評估方法論架構。模型將公共運輸流程區分為兩個連續子製程：第一階段為「營運與派遣」，投入車輛資源、司機與學生時間，產出里程、準時程度及服務覆蓋率；第二階段為「社會價值轉化」，將第一階段的運輸供給作為中間變數，並透過SROI將抽象的長者社會參與、時間節省與碳排減少精準貨幣化，作為第二階段之最終社會價值產出。
+為了驗證本方法論之實用性與可行性，本研究以台灣海洋大學大學USR團隊於新北市貢寮區推動之「貢寮共乘服務ˇ」進行實證分析。研究期間收集每趟車次營運數據與利害關係人成效問卷。
+實證結果希望能顯示，研究所建構之NDEA-SROI模型能有效識別出傳統模型無法察覺之「營運效率高、但社會轉化率低」或「營運成本高、但創造極大社會效益」之特殊車次。此外，若是資料充足，研究將進一步針對不同搭乘目的（如就醫、採買、就學）的資源配置提出具體之優化調整方向。
+本研究之學術貢獻在於，首創將SROI的社會價值貨幣化技術嵌入網路效率模型中，為具備公共福利性質之運輸服務提供了一個兼顧「營運效率」與「社會福祉創造」的通用型評估框架；在實務應用上，使用簡單模型分析結果也可作為政府部門、大學USR計畫在進行偏鄉交通補貼決策與社會影響力極大化時之重要政策工具。</p>
+<p>關鍵字：需求反應式公共運輸（DRTS）、社會投資報酬率（SROI）、兩階段網路資料包絡分析（NDEA）、社會價值貨幣化、大學社會責任（USR）</p>
+</div>
 <div id="研究背景與動機" class="section level2">
 <h2>1.1 研究背景與動機</h2>
-<p>在公共經濟與運輸科學領域中，具備公共福利性質的運輸服務其績效評估一直是一項極具挑戰性的學術課題。此類服務的營運本質上承載著雙重任務：</p>
-<ol style="list-style-type: decimal">
-<li><strong>資源配置合理性</strong>：維持營運資源的效率最大化。</li>
-<li><strong>社會福祉創造</strong>：提升弱勢族群可及性與心理增長
-<em>(Qin, Xiang, &amp; Taylor, 2020)</em>。</li>
-</ol>
-<p>然而，現有的績效評估工具多將此兩者割裂，學術界目前缺乏一個能夠同時兼顧營運、且能將主觀社會福祉完全量化並進行優化的整合性方法論架構。</p>
-<blockquote>
-<p><strong>核心動機</strong>
-如何打破傳統績效評估的架構，建構一個兼顧「營運與派遣」與「社會價值轉化」之新型公共運輸績效評估方法論，即為本研究的核心動機。</p>
-</blockquote>
-<hr />
+<p>在公共經濟與運輸科學領域中，具備公共福利性質的運輸服務其績效評估一直是一項極具挑戰性的學術課題。</p>
+<p><span class="my-tooltip"
+style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;"
+title="英文文獻原句 (Vecchio &amp; Martens, 2021)：
+&#39;Yet, the prevalent approaches to transport planning and policy still tend to focus on the workings of the transport system(s), implicitly assuming that a system that works well implies accessibility to opportunities [...]. This approach [...] has overlooked the situation of people poorly served by the existing transport system(s), with detrimental impacts for their accessibility to destinations and thus for their ability to fully participate in society.&#39;">
+然而，目前主流的交通規劃和政策方法仍傾向於關注交通系統的運行，意味著人們能夠方便的獲得各種機會(Brown
+et al.,
+2009)這將不利於現有交通系統服務不足的人群，這不利於他們到達目的地，從而影響他們充分參與社會生活的能力(Vecchio
+&amp; Martens, 2021) </span> <!-- 🎯 提示框終點 --></p>
+<p>在公共經濟與運輸科學領域中，具備公共福利性質的運輸服務其績效評估一直是一項極具挑戰性的學術課題。然而，目前主流的交通規劃和政策方法仍傾向於關注交通系統的運行，這將不利於現有交通系統服務不足的人群。
+<span class="my-tooltip"
+style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;"
+title="英文文獻真實原句 (Lucas, 2012, Sec 2)：
+&#39;there is a move away from the traditional systems-based approach to transport provision, towards a more people-focused and needs-based social policy perspective. It asks questions about equality of opportunity to access key services and equity of outcome rather than outputs...&#39;">
+近年逐漸達成共識，運輸的績效評估逐漸從傳統的系統性方法，轉向「以人為本、以需求為導向」的視角，去關注弱勢族群獲取基本服務的機會均等以及「福祉結果的公平」，而非單純的實體交通供給產出。(Lucas,
+2012) </span> <!-- 🎯 提示框終點 --></p>
+<p>學術界已有多篇文章將資料包絡分析（DEA）使用在需求反應式交通（DRTS）與偏鄉大眾運輸的績效評估中(yenet
+al.,2022;)，然而 <span class="my-tooltip"
+style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;"
+title="英文文獻真實原句 (Lao &amp; Liu, 2009, p.441)：
+&#39;Typically, the productivity of a public transit agency, as measured by its operating costs and revenues, is compared with the productivity of similar agencies to determine the relative efficiency of the agency. Little attention has been given to the spatial aspects...&#39; ">
+近年福利與大眾運輸績效評估文獻，多數研究仍高度偏重於傳統管理層面的評估，僅透過「營運財務成本與票箱收入」來比較與衡量運輸系統的技術效率，進而忽略了實際運輸供給過程中的空間特質與弱勢居民的真實乘車需求(Lao
+&amp; Liu, 2009) </span> <!-- 🎯 提示框一終點 --></p>
+<p><span class="my-tooltip"
+style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;"
+title="英文文獻真實原句 (Lao &amp; Liu, 2009, p.442 / Triantis, 2004)：
+&#39;However, as Triantis (2004, p. 426) pointed out, very little research has focused on the evaluation of performance at the transportation process level.&#39;">
+如文獻中指出，運輸效率評估領域中，比較少有研究將焦點放在交通「微觀運輸過程層面（Transportation
+process
+level）」。這使得傳統評估流於黑盒子式的總體事後結算，無法深入探討個別車次的動態資源轉化(Lao
+&amp; Liu, 2009; Triantis, 2004) </span></p>
+<!-- 🎯 提示框二終點 -->
+<p>因此在這次研究中，嘗試加入兩階段網路資料包絡分析（Network
+DEA(NDEA)）。 <span class="my-tooltip"
+style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;"
+title="英文文獻真實原句 (Sheth, Triantis, &amp; Teodorovic, 2007)：
+&#39;Opening the production black box is an ongoing research concern... The primary contribution of this research to the literature is the formulation of a framework that combines the views of the provider, the consumer and society.&#39;">
+建構一個結合了服務提供者（第一階段營運）、服務使用者(服務內容)與社會價值（第二階段社會價值）的架構(Sheth
+et al., 2007) </span>
+並以SROI作為計算社會價值的方法，納入社會、環境…等難以量化的成本和效益(Nicholls
+et al., 2012)
+最後將以國立臺灣海洋大學大學社會責任（USR）團隊於新北市貢寮區推動之「貢寮共乘服務」為實證對象。
+—</p>
 </div>
 <div id="研究目的" class="section level2">
 <h2>1.2 研究目的</h2>
-<p>本研究旨在建立一個整合 SROI
-貨幣化指標與兩階段網路資料包絡分析（NDEA）之新型公共運輸績效評估方法論框架，並以實際之偏鄉共乘
-USR 計畫進行實證與可行性驗證。具體研究目的包含以下三點：</p>
-<div id="建構整合型-ndea-sroi-方法論評估架構" class="section level3">
-<h3>1. 建構整合型 NDEA-SROI 方法論評估架構</h3>
-<p>打破傳統 DEA
-模型的限制，將公共共乘運輸流程區分為「第一階段：營運與派遣」與「第二階段：社會價值轉化」。利用
-SROI
-的利害關係人轉變理論，將抽象的社會效益貨幣化，作為模型之最終產出項。</p>
-</div>
-<div id="驗證新方法論於偏鄉共乘運輸之實用性" class="section level3">
-<h3>2. 驗證新方法論於偏鄉共乘運輸之實用性</h3>
-<p>以國立台灣海洋大學 USR
-團隊於新北市貢寮區推動之<strong>「貢寮共乘服務」</strong> DRTS
-共乘服務進行實證分析，透過每趟車次的數據，驗證本模型識別「營運效率」與「社會福祉轉化效率」雙重無效率車次之能力。</p>
-</div>
-<div id="提出基於效率前沿之偏鄉交通優化與政策補貼建議"
+<p>研究目的在回應現行大眾運輸績效評估偏重財務指標、忽略微觀運輸過程與社會福祉之學術缺口。具體研究目的內容如下：</p>
+<div id="建構融合營運效率與社會價值轉換效率之偏鄉運輸績效評估框架"
 class="section level3">
-<h3>3. 提出基於效率前沿之偏鄉交通優化與政策補貼建議</h3>
-<p>透過兩階段效率解構與差額分析（Slack-based Measure,
-SBM），針對不同搭乘目的（如就醫、採買、就學）之資源配置進行優化，為政府部門與大學
-USR
-團隊在進行偏鄉交通資源分配與補貼決策時，提供具備科學實證之管理決策工具。</p>
+<h3>1.
+建構融合「營運效率」與「社會價值轉換效率」之偏鄉運輸績效評估框架</h3>
+<p>打破傳統DEA的黑盒子限制，利用兩階段網路資料包絡分析（Two-stage
+Network
+DEA）的結構，將偏鄉共乘服務的評估切分為「營運效率」與「社會轉換效率」兩個階段，完整觀察資源轉換的過程。</p>
+</div>
+<div id="導入社會投資報酬率sroi方法論實現社會福利結果的量化與貨幣化"
+class="section level3">
+<h3>2.
+導入社會投資報酬率（SROI）方法論，實現社會福利結果的量化與貨幣化</h3>
+<p>針對偏鄉大眾運輸中，使用者所獲得的「時間、交通費節省」及「社會參與」以及外部效益「減碳量價值」等難以量化的非市場價值，導入
+SROI 方法論進行財務替代指標（Financial Proxies）的估算，並將其轉化為
+NDEA 第二階段的實質福利產出。</p>
+</div>
+<div id="以新北市貢寮共乘服務進行實證分析並提供具體之交通正義政策建議"
+class="section level3">
+<h3>3.
+以新北市貢寮共乘服務進行實證分析，並提供具體之交通正義政策建議</h3>
+<p>以國立臺灣海洋大學大學USR團隊在新北市貢寮區推動的共乘服務為實證對象，進行個別車次與整體的效率評估。依據結果，分析影響效率之關鍵與
+差額變數(Slacks)，為具公共福利性質之運輸服務、USR及未來政府的偏鄉交通政策，提供具備營運派遣效益與社會效益的決策依據。</p>
 <hr />
 </div>
 </div>
 <div id="研究步驟與流程" class="section level2">
 <h2>1.3 研究步驟與流程</h2>
-<p>本研究共分為四個階段，整體研究架構如下圖所示（或參考下方說明）：</p>
+<p>研究為了達成上述各項研究目的，將整體研究規劃拆為六個階段：</p>
 <ul>
-<li><strong>【階段一】文獻爬梳與架構發展</strong> 彙整 DRTS
-績效評估、SROI 價值貨幣化技術及兩階段 NDEA
-理論，找出研究缺口，建構兩階段評估模型之數學基礎。</li>
-<li><strong>【階段二】數據與問卷收集</strong> 蒐集貢寮 USR
-共乘計畫之車次營運日誌（司機時間、里程、補貼油資），並針對乘客與志工進行
-SROI 利害關係人問卷調查。</li>
-<li><strong>【階段三】效益貨幣化與效率求解</strong>
-依據問卷結果計算出各車次之社會價值產出，並帶入<strong>無導向 SBM-NDEA
-模型</strong>求解各決策單位（DMU）之整體效率與階段效率。</li>
-<li><strong>【階段四】優化分析與結論</strong>
-進行敏感度分析，並依據投影結果提出實務政策建議。</li>
+<li><strong>【階段一】確定研究主題與問題意識</strong>
+:蒐集並分析偏鄉大眾運輸、需求反應式交通（DRTS）之相關文獻，聚焦於傳統效率評估忽視微觀運輸過程與社會價值之學術缺口，進而定本研究的核心目的</li>
+<li><strong>【階段二】實證對象與資料收集</strong>
+:以國立臺灣海洋大學大學USR團隊於新北市貢寮區推動之「貢寮共乘服務」為實證對象，收集個別車次之營運派遣資料（如油資、志工人力、接送里程、搭乘人次等），並同步收集使用者之社會價值與外部效益數據。</li>
+<li><strong>【階段三】SROI 社會與環境福祉貨幣化評估</strong> :運用 SROI
+方法論與財務替代指標，針對共乘服務所創造之「時間與交通費節省」、「社會參與提升」及「環境減碳價值」等非市場價值進行量化與貨幣化估算。</li>
+<li><strong>【階段四】兩階段 NDEA 模型求解與效率分析</strong>
+:將貨幣化後之結果與營運資料輸入 NDEA
+模型。第一階段評估「營運效率」，第二階段評估「社會價值轉換效率」，並透過差額變數分析個別車次與整體的派遣問題。</li>
+<li><strong>【階段五】結論與政策建議</strong>
+:綜合實證分析結果，撰寫研究結論，並從交通正義、營運派遣優化與 USR
+永續經營之角度，提出具體之政策與實務建議。</li>
 </ul>
 </div>
 

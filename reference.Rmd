@@ -1,0 +1,94 @@
+---
+title: "問卷與參考文獻"
+output: html_document
+---
+
+## 問卷
+
+基本資料
+
+1.性別:
+
+2.年齡: 
+
+3.起點: 
+
+4.終點:
+
+5.使用目的:A 就學 B 就醫 C 觀光 D 購物 E USR F 其他
+
+第一部分 改變(以下選項皆為李克特五點量表)
+
+6.您是否瞭解本計畫推動的目的
+
+7.使用共乘服務後，您在往返目的地的便利性上是否有具體改善
+
+8.使用共乘後，您規劃外出的自主性提升
+
+9.共乘有助於減輕交通負擔
+
+10.使用共乘後您更常參與社區活動
+
+11.共乘使我的生活變得更豐富
+
+12.您感到更開心或滿足
+
+第二部分 歸因
+
+13.這次共乘服務確實解決了您的交通不便
+
+14.如果您的生活交通獲得改善，您認為有多少比例能歸功在共乘服務上
+
+第三部分 無異
+
+15.如果沒有共乘服務，您是否還有意願參加本次活動
+
+16.若有，您的替代交通工具為  (根據交通工具計算減碳量)
+
+第四部份 替代
+
+17.您是否認為本共乘排擠了其他交通工具營運
+
+第五部分 量化
+
+18.使用共乘後，本次外出節省時間
+
+19.使用共乘後，本次節省交通費
+
+20.這趟活動行程對您來說非常重要。若因為沒有這趟共乘車，導致您無法成行，請問您願意付出多少代價來換取這趟行程？(貨物替代社會價值)
+
+第六部分 未來規劃
+
+21.您願意支付多少金額享受共乘服務?
+
+為避免受訪者產生回應順序效應，導致題目間產生虛假的關聯或誘導式回應，本研究參考 Krosnick & Alwin (1987) 關於認知處理與順序效應之理論，針對調查題項採取了順序隨機化設計，以確保每項指標在受訪者心中的評估皆具備獨立性，而非受到題序的認知引導。
+
+## 文獻參考
+
+Vecchio, G., & Martens, K. (2021). Transport justice and the distribution of transport infrastructure: A review. Transport Reviews.
+
+Lucas, K. (2012). Transport and social exclusion: Where are we now? Transport Policy.
+
+Lao & Liu(2009). Performance evaluation of bus lines with data envelopment analysis and geographic information systems.
+
+Seavers, B., Triantis, K., & Hoopes, B. (2004). "Efficiency Performance and Dominance in Influential Subsets: An Evaluation using Fuzzy Clustering and Pair-wise Dominance
+
+Sheth, C., Triantis, K., & Teodorovic, D. (2007). Performance evaluation of bus routes: A provider and passenger perspective.
+
+Martens, K. (2016). Transport justice: Designing fair transportation systems. Routledge.
+
+Guzman, L. A., & Oviedo, D. (2018). Accessibility, affordability and equity: assessing 'car-use' in low-income areas in Bogotá. Journal of Transport Geography.
+
+Venezia, A., & Pizzutilo, F. (2020). Evaluation tools for transport infrastructures: Social Return On Investment.
+
+Karlaftis, M. G., & Tsamboulas, D. (2012). Efficiency measurement in public transport: Are findings specification sensitive?
+
+Yu, M.-M., & Fan, L. (2012). Measuring the performance of multimode bus transit: A mixed structure network DEA model.
+
+Lamanna, M., Klinger, C. A., Liu, A., & Mirza, R. M. (2019). The association between public transportation and social isolation in older adults
+
+Wright, S., Nelson, J. D., Cooper, J. M., & Murphy, S. (2009). An evaluation of the transport to employment (T2E) scheme in Highland Scotland using social return on investment (SROI). Transport Policy,
+
+Nicholls, J., Lawlor, E., Neitzert, E., & Goodspeed, T. (2012). A guide to social return on investment. Cabinet Office, UK.
+
+Krosnick, J. A., & Alwin, D. F. (1987). A cognitive theory of response-order effects in survey measurement.

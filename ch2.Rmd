@@ -3,29 +3,89 @@ title: "第二章 文獻回顧"
 ---
 
 ## 2.1 偏鄉與福利性質運輸服務之績效評估研究
-*(此處放入你修改、擴充後的 2.1 文字，記得多補入 Martens 的交通正義理論)*
+<span class="my-tooltip" style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;" title="英文文獻真實原句 (Martens, 2016)：
+'Amidst a conservative political atmosphere across much of the developed world, justice is back on their agendas, at least those of civil society organizations and the general public. Social movements across the globe are involved in struggles against often brutal forms of social, environmental and spatial injustices... Against this background, the injustices in the domain of transportation hardly ever attract attention. They are typically not a matter of life and death and, as a result, are seldom visible to the public eye.'">
+在發達國家普遍保守的政治氛圍中，正義成為了公民組織與一般大眾的關注議程中。全球的社會運動正致力於抗爭各種殘酷的社會、環境與空間不正義，而這些不正義往往直接威脅著人們的生命或生計。在這種背景下，交通領域的不正義幾乎從未引起注意；因為它們通常無關生死，結果便是極少進入公眾的視野
+(Martens, 2016)，
+</span>
+這種隱形的不正義，在城鄉差距劇烈、大眾運輸系統不發達的偏鄉地區，往往會實體化為結構性的「交通貧窮（Transport Poverty）」或「運輸剝奪（Transport Deprivation）」。
+<!-- 🎯 楊宸睿專用：Lucas (2012) 100% 正版原文銲接提示框一 -->
+<span class="my-tooltip" style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;" title="英文文獻真實原句 (Lucas, 2012)：
+'the concept of social exclusion emphasises the interactions between those causal factors which lie with the individual, such as age, disability, gender and race, factors which lie with the structure of the local area, such as a lack of available or inadequate public transport services...'">
+在某些人因個人因素(高齡、殘疾)使得他們較難出行，與他所住的地方因結構因素(缺乏或不足的公共交通服務)相互作用下則會對他們產生社會排斥(Social exclusion)(Lucas, 2012)。
+</span>
+<!-- 🎯 提示框二終點 -->
+而以往多數研究仍偏重於傳統管理層面的評估，僅透過營運方面來比較與衡量運輸系統的效率(Lao & Liu, 2009)，而這也意味著忽略掉了運輸服務背後所產生的社會價值，
+績效評估如果只盲目追求每公里財務成本或傳統效率，
+<span class="my-tooltip" style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;" title="英文文獻真實原句 (Karlaftis, 2004)：
+'Input costs such as capital, fuel, and labor were rather stable, and costs were controlled by cutting service on those routes where revenue fell below marginal cost.'">
+可能會導致為了控制成本或追求財物效率，而削減那些營運收入低於邊際成本、居住更偏遠且更需要被幫助的弱勢族群(Karlaftis, 2004)。
+</span>
+<!-- 📌 坑二：Guzman & Oviedo (2018) 100% 真實截圖文獻銲接 -->
+<span class="my-tooltip" style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;" title="英文文獻真實原句 (Guzman & Oviedo, 2018)：
+'traditional approaches to public transport policy evaluation do not consider accessibility changes... Although system coverage is acceptable, route frequencies are very low mainly in some peripheral zones, providing a low level of service.'">
+當評估缺乏了公平性及可及性時，往往會導致偏遠地區班次頻率極低、服務水準低落
+(Guzman & Oviedo, 2018)。
+</span>
+，進而使得更需要被幫助的弱勢族群在空間上被進一步邊緣化，
+<span class="my-tooltip" style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;" title="英文文獻真實原句 (Lucas, 2012)：
+'In this way, there is a move away from the traditional systems-based approach to transport provision, towards a more people-focused and needs-based social policy perspective. It asks questions about equality of opportunity to access key services and equity of outcome rather than outputs and also begins to raise the issue of redistributive justice, i.e. the extent to which policy should seek to redistribute transport wealth in the interests of ‘fairness’ or ‘justice’'">
+因此，交通運輸正從傳統的方法轉向以人為本、以需求為導向的社會政策視角。它關注的是獲取關鍵服務的機會平等和結果公平，而非產出公平，並開始探討再分配正義的問題，即政策應在多大程度上為了「公平」或「正義」而尋求交通財富的再分配(Lucas, 2012)。
+</span>
 
 ## 2.2 社會投資報酬率（SROI）之發展與社會價值貨幣化技術
-*(此處放入 2.2 文字，強調微觀化 Trip-level 的學術創新點)*
+自2012年英國內閣辦公室（UK Cabinet Office）發布了由 Nicholls 等人撰寫之官方指南《A Guide to Social Return on Investment》後，SROI逐漸廣泛運運用在各大行業中，當某些社會成果不存在市場交易價格時，評估者必須藉由引進金融代理變數（Financial Proxies）的技術，來評估與估算社會大眾對這些非市場財貨的內心認知價值。此一價值貨幣化技術的核心正當性，在於確保這些難以被傳統財務指標捕捉的社會效益，在長期的政策評估過程中，不會因為缺乏市場價格而被忽略或低估其貢獻
+(Nicholls, et al., 2012)
+近年來，也陸陸續續有學者將SROI作為偏鄉社會價值的貨幣化工具(Wright,et al,.2009)，
+此外，正如交通領域學者 Venezia (2020) 針對交通基礎設施評估的研究明確指出，當前學術界對於「社會價值」的重視，具有克服傳統評估模型的潛力；
+<!-- 📌 文獻四：第三篇交通案例 Venezia (2020)（100%完全依據你的中文與指定原句進行銲接） -->
+<span class="my-tooltip" style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;" title="英文文獻真實原句 (Venezia, 2020)：
+'Such an emerging attention on “social value” has the straightforward potential to overcome the traditional evaluation models of infrastructure intervention. Indeed, there is an increasing recognition for new and accurate measures able to adequately account for the social, economic and environmental value that results from each public infrastructure intervention.'">
+人們也越來越體認到，需要新的、更精確的衡量標準，才能充分反映每一項公共建設所帶來的社會、經濟和環境價值(Venezia & Pizzutilo, 2020)。
+</span>
+因此，為了還原海大 USR 團隊於新北市貢寮區推動之共乘服務在微觀派遣車次中所創造之隱形福祉，本研究將正式導入 SROI 方法論作為本研究評估社會價值的計量工具。
 
-## 2.3 資料包絡分析（DEA）於公共與雙階段網路效率評估之應用
-*(此處放入 2.3 文字，並帶出 Tone & Tsutsui 的 SBM-NDEA 理論基礎)*
+## 2.3 網路資料包絡分析（NDEA）於公共與雙階段網路效率評估之應用
 
+<!-- 📌 Karlaftis & Tsamboulas (2012) 實體原文精密焊接 -->
+<span class="my-tooltip" style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;" title="英文文獻真實原句 (Karlaftis & Tsamboulas, 2012)：
+'The need to measure transit system performance along with its various dimensions such as efficiency and effectiveness has led to the development of a wide array of approaches and vast literature.'">
+在過去的研究中，衡量大眾運輸系統的效率及效益已累積了極為龐大的學術文獻
+(Karlaftis & Tsamboulas, 2012)，
+</span>
+然而，傳統的黑盒子模型，本質上將整個生產與接送過程視為一個不透明的黑盒子。
+<span class="my-tooltip" style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;" title="英文文獻真實原句 (Yu, 2012)：
+'Unlike the production and consumption processes of the manufacturing sectors, a transit service cannot be stored, and therefore the output consumed (the final output) may vary considerably from the output produced (the intermediate output)... Although the conventional DEA model evaluates the efficiency, it does not distinguish the performance of the DMU in all its activities. '">
+但是大眾運輸服務具有「不可儲存性（Unstorable & Perishability）」之獨特時間與空間特質。大眾運輸系統內部所「生產」的中間產出（如車公里、派遣車次），往往與乘客最終使用的有效服務產出(人公里)存在落差，僅管傳統DEA能評估效率，但他無法區分每個DMU在活動中的效率
+(Yu & Fan, 2012)。
+</span>
+因此，這次研究中導入NDEA進行評估，第一階段營運評估效率及第二階段社會價值轉換效率(Lu et al,. 2016) 
+將新北市貢寮區共乘服務的派遣車次效率，劃分為獨立卻又相互關聯的兩階段：
+
+第一階段定義為營運評估效率，聚焦於衡量 USR 團隊與志工司機如何將車輛成本、油資等原始投入資源，有效轉換為服務里程與派遣車次等中間生產指標；
+
+第二階段則定義為社會價值轉換效率，將第一階段產生的中間里程與車次作為本階段投入，並引進 SROI 貨幣化後的社會外部福祉作為最終產出。
+<span class="my-tooltip" style="color: #3182bd; cursor: help; border-bottom: 1px dashed #3182bd;" title="英文文獻真實原句 (Lamanna et al., 2020)：
+'Inadequate public transportation was recognized as a barrier to social participation, especially for older adults in rural communities and with mobility issues. Older adults will not benefit from opportunities to engage with their community and maintain social networks if they are unable to access them.'">
+在交通與老年學的實證研究中，公共交通不便被認為是老年人參與社會活動的一大障礙，尤其對於居住在農村社區和行動不便的老年人而言更是如此；如果老年人無法獲得參與社區活動和維繫社交網絡的機會，他們就無法從中受益
+(Lamanna et al., 2020)。
+</span>
+因此研究以海大實證作為在第二階段評估中，將高齡長者社交孤立感之減少價值與就醫可及性提升之總貨幣化價值等無形社會外部效益正式納入最終產出中，進一步去觀察微觀派遣車次實質轉化為社會價值的效率。
 ---
 
 ## 2.4 本研究定位與研究缺口 {.tabset .tabset-fade .tabset-pills}
 
-### 🔍 當前學術界的四大研究缺口
+###  學術界的研究缺口
 
-1. **運輸績效割裂**：傳統運輸 NDEA 模型的第二階段產出，多依賴缺乏財務基礎的滿意度問卷（Likert 尺度），在 DEA 矩陣運算中缺乏數學嚴謹度。
-2. **SROI 的微觀盲點**：傳統 SROI 架構屬於總體事後（Aggregate）的靜態指標，缺乏微觀效率前沿（Efficiency Frontier）的優化能力，無法針對「個別車次 (Trip-level)」進行診斷。
-3. **福利價值的忽視**：若僅依賴財務指標評估偏鄉 DRTS，將導致制度性排斥極偏遠、高齡弱勢的乘客。
-4. **理論整合的空白**：國內外文獻極少嘗試將 SROI 科學化的「社會價值貨幣化技術」與「兩階段 SBM-NDEA 模型」進行深度理論與公式的整合。
+1. **評估指標**：現有交通與客運 NDEA 文獻在評估第二階段的「服務有效性」時，所採用的產出變數本質上仍侷限在可量化的指標（如載客量、延人公里、服務覆蓋率或旅次創造）。此類傳統模型本質上，比較無法處理、偏鄉弱勢長者心中那些主觀且難以被市場定價的無形社會價值。
+2. **SROI 的微觀盲點**：雖然社會投資報酬率（SROI）能成功透過金融代理變數將非市場財貨的社會外部效益進行貨幣化，然而 SROI 方法論在微觀管理診斷上存在著根本性的盲點。SROI 的計算本質上屬於計畫層面的總量加總，它僅能呈現整體的社會價值投報比，卻完全無法辨識微觀派遣個體（如個別車次、不同營運時段之 DMU）在資源轉換上的邊際技術效率。若僅流於 SROI 的總量評估，將無法診斷資源分配的個別優劣，亦無法分析生產與消費過程中的邊際效率限制。
 
-### 🚀 本研究之學術與實務定位
+### 研究之學術定位
 
-為了填補上述缺口，本研究提出**整合型 NDEA-SROI 方法論評估框架**：
+研究之學術定位針對前述兩大傳統學術界之缺口，透過跨領域的方法論整合，將自身研究定位於以下兩大突破性角色：
 
-* **數學嚴謹度提升**：利用 SROI 的金融代理變數，將主觀、非財務的社會福祉（長者社交、時間節省、減碳）轉化為**具備財務意涵的連續變數**，完美解決 Likert 序位尺度進入 DEA 的數學質疑。
-* **微觀營運優化**：首創將 SROI 的成效拆解並分攤至「每趟車次」，帶入無導向 SBM-NDEA 模型進行差額分析（Slack-based Measure），診斷出微觀的標竿車次（DMUs）。
-* **兼顧雙重效率**：本模型既能診斷第一階段「營運資源 $\rightarrow$ 交通供給」的營運效率，又能優化第二階段「交通供給 $\rightarrow$ 社會價值」的福祉轉化效率。
+1. **定位為「以人為本、具再分配正義之福利運輸效率評估」**
+   針對傳統 NDEA 模型無法捕捉主觀無形價值的限制，打破了過去數十年來客運績效評估僅能依賴載客量、延人公里等量化指標的框架。將自身定位在社會政策的再分配正義，首創將偏鄉弱勢長者心中無形、難以市場定價的無形社會價值，透過金融代理變數技術轉化為可計量的貨幣化產出，並加入NDEA模型中。這使本研究成為少數能同時兼顧數學嚴謹度、以及以人為本之偏鄉福利運輸評估範式。
+
+2. **定位為「SROI 微觀效率」**
+   針對傳統 SROI 僅能進行計畫層面或長時間的總量加總、缺乏微觀個體效率辨識力的致命盲點，研究將學術角色定位為**「SROI 的微觀效率」**。創新型地將 SROI 的貨幣化產出，解構並重新配置為NDEA中第二階段的最終產出向量，本研究成功為社會價值衡量工具補足了微觀分析的能力，在方法上具備高度的創新。

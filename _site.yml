@@ -13,6 +13,8 @@ navbar:
       href: ch4.html
     - text: "CH5 資料生成邏輯與原始數據"
       href: ch5.html
+    - text: "附註與參考文獻"
+      href: reference.html
 output:
   html_document:
     theme: cosmo
