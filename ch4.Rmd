@@ -57,7 +57,7 @@ library(readxl)
 
 QQ <- read_excel("C:/Users/x2991/Downloads/QQ.xlsx")
 
-# 1. 計算各組數據
+
 group_stats <- QQ %>%
   group_by(purpose) %>%
   summarise(
@@ -69,7 +69,7 @@ group_stats <- QQ %>%
     綜合平均 = round(mean(FE, na.rm = TRUE), 3)
   )
 
-# 2. 計算全體樣本數據 (Overall)
+
 overall_stats <- QQ %>%
   summarise(
     purpose = "全體樣本",
@@ -81,16 +81,16 @@ overall_stats <- QQ %>%
     綜合平均 = round(mean(FE, na.rm = TRUE), 3)
   )
 
-# 3. 合併表格
+
 final_table <- bind_rows(group_stats, overall_stats)
 
-# 4. 輸出最終版表格
+
 kable(final_table, 
       "html", 
       caption = "表 4-2：各目的別與全體樣本投入與產出效率之描述性統計",
       col.names = c("搭乘目的", "樣本數", "營運(平均)", "營運(SD)", "社福(平均)", "社福(SD)", "綜合(平均)")) %>%
   kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = FALSE) %>%
-  # 最後一行（總計）加粗，看起來更醒目
+
   row_spec(nrow(final_table), bold = TRUE, background = "#f2f2f2")
 ```
 
@@ -204,13 +204,7 @@ ggsave("docs/plot_FE.png", plot = p3, width = 7, height = 5, dpi = 300)
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE}
 shapiro.test(QQ$S1E)
-kw_result <- kruskal.test(S1E ~ purpose, data = QQ)
-print(kw_result)
-library(dunn.test)
-dunn.test(QQ$S1E, QQ$purpose, method="bonferroni")
-kw_S2E <- kruskal.test(S2E ~ purpose, data = QQ)
-print(kw_S2E)
-dunn.test(QQ$S2E, QQ$purpose, method="bonferroni")
+
 ```
 
 
@@ -241,7 +235,6 @@ H1:五種搭乘目的之最終效率中位數至少有兩組具顯著差異。
 
 QQ$grp_chinese <- factor(QQ$purpose, levels = c("就學", "購物", "就醫", "觀光", "USR活動"))
 
-# 檢定A第一階段效率
 
 cat("檢定 A:第一階段效率整體與事後兩兩檢定\n")
 
@@ -250,14 +243,11 @@ cat("整體檢定(Kruskal-Wallis Test)：\n")
 kw_S1E <- kruskal.test(S1E ~ grp_chinese, data = QQ)
 print(kw_S1E)
 
-# 2. 兩兩比較表格 換成 Pairwise Wilcoxon 矩陣
 cat("第一階段效率兩兩比較(Pairwise Wilcoxon)\n")
 pw_S1E <- pairwise.wilcox.test(QQ$S1E, QQ$grp_chinese, p.adjust.method = "BH")
 print(pw_S1E)
 
 
-
-# 檢定B第二階段效率
 
 cat("檢定 B:第二階段效率整體與事後兩兩檢定\n")
 
@@ -273,12 +263,11 @@ print(pw_S2E)
 cat("檢定C最終效率整體與事後兩兩檢定\n")
 
 
-# 1. 整體檢定 (拒絕 H0)
 cat("整體檢定( Kruskal-Wallis Test) \n")
 kw_FE <- kruskal.test(FE ~ grp_chinese, data = QQ)
 print(kw_FE)
 
-# 2. 事後兩兩比較表格
+
 cat("最終效率兩兩比較(Pairwise Wilcoxon)\n")
 pw_FE <- pairwise.wilcox.test(QQ$FE, QQ$grp_chinese, p.adjust.method = "BH")
 print(pw_FE)
@@ -352,7 +341,6 @@ library(VGAM)
 QQ$grp <- factor(QQ$grp)
 
 
-# 模型 A：第一階段營運效率 Tobit 迴歸
 
 cat("第一階段營運效率 迴歸結果\n")
 
@@ -363,7 +351,6 @@ tobit_S1E <- vglm(S1E ~ VT + ST + OIL  + grp,
 print(summary(tobit_S1E))
 
 
-# 模型 B：第二階段社會轉換效率Tobit 迴歸
 
 cat("第二階段社會轉換效率 迴歸結果\n")
 
@@ -373,7 +360,6 @@ tobit_S2E <- vglm(S2E ~ STS + Money + SH + CO + grp,
 print(summary(tobit_S2E))
 
 
-# 模型 C：最終效率 Tobit 迴歸
 
 cat("最終效率 迴歸結果\n")
 
@@ -384,9 +370,9 @@ print(summary(tobit_FE))
 ```
 
 
-## Finding 2
+### Finding 2
 
-### 第一階段
+#### 第一階段
 
 應變數:第一階段純營運效率
 
@@ -398,7 +384,7 @@ print(summary(tobit_FE))
 
 推測這三項實體投入成本將呈現固定比例之集體浪費，因此迴歸模型分攤了同等的影響。
 
-### 第二階段
+#### 第二階段
 
 應變數:第二階段社會轉換效率
 
@@ -413,7 +399,7 @@ print(summary(tobit_FE))
 
 在控制了自變數後，原本不顯著的觀光目的別虛擬變數（grpTour）轉化為顯著的負面影響。這項數據指出，即使在資源與產出完全相同的基準下，觀光車次的屬性，相較於就學等車次，在福利轉換上存在結構劣勢。
 
-### 最終效率
+#### 最終效率
 
 應變數：最終效率
 
